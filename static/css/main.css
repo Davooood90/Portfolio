@@ -924,6 +924,8 @@ header.masthead {
     background-attachment: scroll;
     background-position: center center;
     background-size: cover;
+    display: flex;
+    height: 100vh;
   }
 @media (min-width: 768px) {
     header.masthead {
