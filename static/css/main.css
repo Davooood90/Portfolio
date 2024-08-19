@@ -92,8 +92,7 @@ body {
     width: 100%;
     padding-right: calc(var(--bs-gutter-x) * 0.5);
     padding-left: calc(var(--bs-gutter-x) * 0.5);
-    margin-right: auto;
-    margin-left: auto;
+    margin: auto;
   }
 ol, ul, dl {
     margin-top: 0;
@@ -925,7 +924,6 @@ header.masthead {
     background-position: center center;
     background-size: cover;
     display: flex;
-    height: 100vh;
   }
 @media (min-width: 768px) {
     header.masthead {
@@ -1316,6 +1314,9 @@ section#contact {
     padding-bottom: 1.5rem !important;
 }
 
+.full-screen {
+  height: 100vh !important;
+}
 
 .footer {
     background-color: #cdd9db;
