@@ -927,7 +927,7 @@ header.masthead {
   }
 @media (min-width: 768px) {
     header.masthead {
-        padding-top: 17rem;
+        padding-top: 22rem;
         padding-bottom: 12.5rem;
     }
 }
