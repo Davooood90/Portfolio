@@ -918,7 +918,7 @@ header.masthead {
     padding-bottom: 6rem;
     text-align: center;
     color: #fff;
-    background-color:#212529;
+    background-color:#04192cc6;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -1000,7 +1000,7 @@ header.masthead .masthead-heading {
     margin-top: var(--bs-gutter-y);
   }
 
-@media (min-width: 576px) {
+@media (min-width: 620px) {
     .col-sm-6 {
         flex: 0 0 auto;
         width: 50%;
@@ -1033,10 +1033,10 @@ header.masthead .masthead-heading {
     margin-left: 0.25rem !important;
 }
 @media (min-width: 992px) {
-    .col-lg-4 {
+    /* .col-lg-4 {
         flex: 0 0 auto;
         width: 33.33333333%;
-    }
+    } */
     .col-lg-6 {
       flex: 0 0 auto;
       width: 50%;
@@ -1129,7 +1129,7 @@ header.masthead .masthead-heading {
 
 /* projects */
 #projects .projects-item {
-    max-width: 26rem;
+    max-width: 75rem;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1316,6 +1316,7 @@ section#contact {
 
 .full-screen {
   height: 100vh !important;
+  width: 100% !important;
 }
 
 .footer {
