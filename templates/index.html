@@ -15,6 +15,9 @@
 
     <!-- Autoslider -->
     <link rel="stylesheet" href="../static/css/autoslider.css">
+
+    <!-- Modal -->
+    <link rel="stylesheet" href="../static/css/modal.css">
 </head>
 
 <body>
@@ -124,7 +127,6 @@
             <img class="img-fluid img-circular" src="../static/img/slideshow/image7.jpg" alt="..." />
             <img class="img-fluid img-circular" src="../static/img/slideshow/image8.JPG" alt="..." />
             <img class="img-fluid img-circular" src="../static/img/slideshow/image9.jpg" alt="..." />
-            <img class="img-fluid img-circular" src="../static/img/slideshow/image10.JPG" alt="..." />
         </div>
     </div>
     <div class="images" id="row_4" style="z-index: 0;">
@@ -299,20 +301,10 @@
                 <div class="col-lg-4 col-sm-6 mb-4">
                     <!-- Portfolio item 1-->
                     <div class="projects-item">
-                        <a class="projects-link" href="error.html">
-                            <div class="projects-hover">
-                                <div class="projects-hover-content">
-                                    <svg class="svg-inline--fa fa-plus fa-3x" aria-hidden="true" focusable="false"
-                                        data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512" data-fa-i2svg="">
-                                        <path fill="currentColor"
-                                            d="M240 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H176V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H240V80z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
+                        <button class="projects-link" onclick="openModal('cocoModal')">
+                            <div class="projects-hover"></div>
                             <img class="img-fluid" src="../static/img/projects/coco.png" alt="..." />
-                        </a>
+                        </button>
                         <div class="projects-caption">
                             <div class="projects-caption-heading">Course Companion</div>
                             <div class="projects-caption-subheading text-muted">July 2022 - Present</div>
@@ -322,20 +314,10 @@
                 <div class="col-lg-4 col-sm-6 mb-4">
                     <!-- projects item 2-->
                     <div class="projects-item">
-                        <a class="projects-link" href="error.html">
-                            <div class="projects-hover">
-                                <div class="projects-hover-content">
-                                    <svg class="svg-inline--fa fa-plus fa-3x" aria-hidden="true" focusable="false"
-                                        data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512" data-fa-i2svg="">
-                                        <path fill="currentColor"
-                                            d="M240 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H176V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H240V80z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
+                        <button class="projects-link" onclick="openModal('valeModal')">
+                            <div class="projects-hover"></div>
                             <img class="img-fluid" src="../static/img/projects/valenlp.png" alt="..." />
-                        </a>
+                        </button>
                         <div class="projects-caption">
                             <div class="projects-caption-heading">ValeNLP</div>
                             <div class="projects-caption-subheading text-muted">January 2023 - February 2023</div>
@@ -345,20 +327,10 @@
                 <div class="col-lg-4 col-sm-6 mb-4">
                     <!-- projects item 3-->
                     <div class="projects-item">
-                        <a class="projects-link" href="error.html">
-                            <div class="projects-hover">
-                                <div class="projects-hover-content">
-                                    <svg class="svg-inline--fa fa-plus fa-3x" aria-hidden="true" focusable="false"
-                                        data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512" data-fa-i2svg="">
-                                        <path fill="currentColor"
-                                            d="M240 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H176V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H240V80z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
+                        <button class="projects-link" onclick="openModal('botModal')">
+                            <div class="projects-hover"></div>
                             <img class="img-fluid" src="../static/img/projects/edubot.png" alt="..." />
-                        </a>
+                        </button>
                         <div class="projects-caption">
                             <div class="projects-caption-heading">EduBot</div>
                             <div class="projects-caption-subheading text-muted">August 2023 - Present</div>
@@ -368,20 +340,10 @@
                 <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
                     <!-- projects item 4-->
                     <div class="projects-item">
-                        <a class="projects-link" href="error.html">
-                            <div class="projects-hover">
-                                <div class="projects-hover-content">
-                                    <svg class="svg-inline--fa fa-plus fa-3x" aria-hidden="true" focusable="false"
-                                        data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512" data-fa-i2svg="">
-                                        <path fill="currentColor"
-                                            d="M240 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H176V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H384c17.7 0 32-14.3 32-32s-14.3-32-32-32H240V80z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
+                        <button class="projects-link" onclick="openModal('osaModal')">
+                            <div class="projects-hover"></div>
                             <img class="img-fluid" src="../static/img/projects/osathletics.png" alt="..." />
-                        </a>
+                        </button>
                         <div class="projects-caption">
                             <div class="projects-caption-heading">OSAthletics Website</div>
                             <div class="projects-caption-subheading text-muted">May 2022 - June 2023</div>
@@ -415,6 +377,71 @@
             </div>
         </div>
     </section>
+
+    <div id="cocoModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-external">
+                <img class="img-fluid" src="../static/img/projects/coco.png" alt="..." />
+                <p><i>July 2022 - Present</i></p>
+                <a href="https://github.com/YEGYouthTech/CourseCompanion">Github</a>
+                <a href="https://coco.yegyouth.tech/">Visit Website</a>
+                <button onclick="closeModal('cocoModal')">Close</button>
+            </div>
+            <div class="modal-summary">
+                Insert Text
+            </div>
+        </div>
+    </div>
+
+    <div id="valeModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-external">
+                <img class="img-fluid" src="../static/img/projects/valenlp.png" alt="..." />
+                <p><i>January 2023 - February 2023</i></p>
+                <p>Github (Unavailble)</p>
+                <a href="https://yegyouth.tech/projects/valenlp/">Visit Website</a>
+                <button onclick="closeModal('valeModal')">Close</button>
+            </div>
+            <div class="modal-summary">
+                Insert Text
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="botModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-external">
+                <img class="img-fluid" src="../static/img/projects/edubot.png" alt="..." />
+                <p><i>August 2023 - Present</i></p>
+                <a href="https://github.com/Davooood90/EduBot">Github</a>
+                <p>Visit Website (Unavailble)</p>
+                <button onclick="closeModal('botModal')">Close</button>
+            </div>
+            <div class="modal-summary">
+                Insert Text
+            </div>
+        </div>
+    </div>
+
+    <div id="osaModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-external">
+                <img class="img-fluid" src="../static/img/projects/osathletics.png" alt="..." />
+                <p>May 2022 - June 2023</p>
+                <a href="https://github.com/Davooood90/OSAthletics-Website">Github</a>
+                <p>Visit Website (Unavailble)</p>
+                <button onclick="closeModal('osaModal')">Close</button>
+            </div>
+            <div class="modal-summary">
+                Insert Text
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer py-4">

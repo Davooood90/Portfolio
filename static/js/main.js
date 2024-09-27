@@ -15,4 +15,15 @@ function navbarShrink () {
 
 };
 
+function openModal (selectedModal) {
+    let modal = document.getElementById(selectedModal);
+    modal.style.display = "flex";
+};
+
+function closeModal (selectedModal) {
+    let modal = document.getElementById(selectedModal);
+    modal.style.display = "none";
+};
+
+
      
