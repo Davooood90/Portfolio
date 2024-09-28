@@ -20,12 +20,20 @@ function openModal (selectedModal) {
     modal.style.display = "flex";
 
     document.body.style.overflow = 'hidden';
+    if (screen.orientation.type != 'portrait-primary') {
+        document.getElementById("mainNav").style.paddingRight = '15px';
+        document.body.style.paddingRight = '15px';
+    }
 }
 
 function closeModal (selectedModal) {
     let modal = document.getElementById(selectedModal);
     modal.style.display = "none";
     document.body.style.overflow = 'initial';
+    if (screen.orientation.type !== 'portrait-primary') {
+        document.getElementById("mainNav").style.paddingRight = '0';
+        document.body.style.paddingRight = '0';
+    }
 };
 
 let detect = document.getElementsByName("detect");
