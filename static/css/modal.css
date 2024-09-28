@@ -109,6 +109,7 @@
 @media (max-width: 820px) {
     .modal-content {
         display: block;
+        max-height: initial;
     }
     .modal-external {
         width: 100%;
