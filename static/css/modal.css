@@ -22,7 +22,7 @@
     max-width: 65rem;
     box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.1);
     border-radius: 1rem;
-    min-height: 60vh;
+    max-height: 60vh;
     display: flex;
 }
 
@@ -87,6 +87,23 @@
     border-radius: 1rem;
     margin-left: 1rem;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-summary p {
+    margin-top: 0;
+    color: #0e1c42;
+}
+
+.modal-summary .base {
+    margin-top: auto;
+
+}
+
+.modal-summary .base p {
+    margin-bottom: 0;
+    color: #0e1c42;
 }
 
 .close {
