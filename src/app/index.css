@@ -9,3 +9,13 @@
 
   --font-jersey: "Jersey 25", sans-serif;
 }
+
+.custom-gradient {
+  background: linear-gradient(
+    to bottom,
+    #001c2e 0%,
+    #003352 34%,
+    #005990 65%,
+    #c1e8ff 100%
+  );
+}

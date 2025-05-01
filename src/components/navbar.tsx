@@ -19,7 +19,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <nav className="block w-full max-w-screen px-4 py-3 mx-auto bg-opacity-0 sticky top-3 z-[9999]">
+      <nav className="block w-full max-w-screen px-4 py-3 mx-auto bg-opacity-0 fixed top-3 z-[9999]">
         <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
           <Link
             href="/"
