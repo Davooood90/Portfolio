@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Jersey+25&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-lightblue: #e3f4ff;
+  --color-hoverblue: #addfff;
+
+  --color-darkblue: #001c2e;
+
+  --font-jersey: "Jersey 25", sans-serif;
+}
