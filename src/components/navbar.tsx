@@ -1,18 +1,19 @@
 "use client";
-import Link from "next/link";
-import { useState } from "react";
 
-type MyComponentProps = {
-  style?: React.CSSProperties;
-};
+import type React from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
+type MyComponentProps = { style?: React.CSSProperties };
 
 export default function Navbar({ style }: MyComponentProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Navigation items array
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/#about" },
@@ -20,6 +21,45 @@ export default function Navbar({ style }: MyComponentProps) {
     { name: "Projects", href: "/projects" },
     { name: "Contact", href: "/#contact" },
   ];
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const scrollToElement = (id: string) => {
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  };
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+      scrollToElement(id);
+    }
+  }, [pathname, searchParams]);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (
+      (href.includes("#") && href.split("#")[0] === "") ||
+      href.split("#")[0] === "/"
+    ) {
+      e.preventDefault();
+      const id = href.split("#")[1];
+      scrollToElement(id);
+      window.history.pushState(null, "", href);
+
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    }
+  };
 
   return (
     <div>
@@ -98,10 +138,8 @@ export default function Navbar({ style }: MyComponentProps) {
                   className="flex items-center p-1 text-lg gap-x-2 text-slate-600 hover:text-hoverblue"
                 >
                   <Link
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                    }}
                     href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
                     className="flex items-center"
                   >
                     {item.name}
@@ -119,7 +157,11 @@ export default function Navbar({ style }: MyComponentProps) {
                   key={index}
                   className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl"
                 >
-                  <Link href={item.href} className="flex items-center">
+                  <Link
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className="flex items-center"
+                  >
                     {item.name}
                   </Link>
                 </li>
