@@ -4,6 +4,9 @@
 @theme {
   --color-lightblue: #e3f4ff;
   --color-hoverblue: #addfff;
+  --color-descgrey: #91a6b3;
+  --color-descgreen: #cdffd2;
+  --color-descred: #ffb2b2;
 
   --color-darkblue: #001c2e;
   --color-midblue: #153041;
