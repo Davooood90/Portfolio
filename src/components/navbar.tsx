@@ -2,7 +2,11 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Navbar() {
+type MyComponentProps = {
+  style?: React.CSSProperties;
+};
+
+export default function Navbar({ style }: MyComponentProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -19,7 +23,10 @@ export default function Navbar() {
 
   return (
     <div>
-      <nav className="block w-full max-w-screen px-4 py-3 mx-auto bg-opacity-0 fixed top-3 z-[9999]">
+      <nav
+        className="block w-full max-w-screen px-4 py-3 mx-auto bg-opacity-0 top-3 z-[9999]"
+        style={style}
+      >
         <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
           <Link
             href="/"

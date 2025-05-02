@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-darkblue">
       <body className="font-jersey">
-        <Navbar />
+        <Navbar style={{ position: "absolute" }} />
         {children}
       </body>
     </html>
