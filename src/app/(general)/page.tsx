@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import LandingPage from "../../components/landing";
 import TitlePage from "../../components/title";
+import AboutPage from "../../components/about";
+import Footer from "../../components/footer";
 
 export default function Home() {
   const titlePageRef = useRef<HTMLDivElement>(null);
@@ -41,9 +43,11 @@ export default function Home() {
           <TitlePage />
         </div>
       </div>
-      <h1 ref={welcomeRef} className="h-screen" id="welcome">
-        Welcome home!
-      </h1>
+      <div ref={welcomeRef} id="welcome">
+        <AboutPage />
+      </div>
+      <Footer />
+      <h1>Welcome home!</h1>
       <Link href="/projects">Projects</Link>
       <Link href="/experiences">Experiences</Link>
     </>
