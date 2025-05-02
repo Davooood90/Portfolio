@@ -52,7 +52,6 @@ export default function TitlePage({ title = " " }: TitlePageProps) {
           className="w-full h-full object-cover"
         />
       </div>
-      {/* Optional: Overlay text or button */}
       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-30">
         <h1 className="text-white text-4xl font-bold">{title}</h1>
       </div>

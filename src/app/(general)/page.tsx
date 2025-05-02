@@ -43,13 +43,13 @@ export default function Home() {
           <TitlePage />
         </div>
       </div>
-      <div ref={welcomeRef} id="welcome">
+      <div ref={welcomeRef} id="about">
         <AboutPage />
       </div>
-      <Footer />
       <h1>Welcome home!</h1>
       <Link href="/projects">Projects</Link>
       <Link href="/experiences">Experiences</Link>
+      <Footer />
     </>
   );
 }

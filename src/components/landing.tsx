@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 export default function LandingPage() {
   const [text, setText] = useState("");
@@ -38,6 +39,40 @@ export default function LandingPage() {
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, currentWord, typingSpeed]);
 
+  const scrollToElement = (id: string) => {
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  };
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+      scrollToElement(id);
+    }
+  }, [pathname, searchParams]);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (
+      (href.includes("#") && href.split("#")[0] === "") ||
+      href.split("#")[0] === "/"
+    ) {
+      e.preventDefault();
+      const id = href.split("#")[1];
+      scrollToElement(id);
+      window.history.pushState(null, "", href);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen px-80">
       <div className="min-w-[1200px] text-left">
@@ -47,7 +82,7 @@ export default function LandingPage() {
           <span className="text-hoverblue inline-block">{text}</span>
         </h2>
         <div className="flex gap-4">
-          <a href="https://Google.com" target="_blank">
+          <a href="/#about" onClick={(e) => handleNavClick(e, "/#about")}>
             <button className="flex cursor-pointer bg-transparent text-lightblue border-2 px-5 py-1 rounded-lg text-xl hover:opacity-[80%] transition duration-300 transform hover:-translate-y-1">
               Learn More
             </button>
