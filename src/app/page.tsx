@@ -1,0 +1,55 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import Link from "next/link";
+import LandingPage from "../components/landing";
+import TitlePage from "../components/title";
+import AboutPage from "../components/about";
+import ContactPage from "../components/contact";
+
+export default function Home() {
+  const titlePageRef = useRef<HTMLDivElement>(null);
+  const welcomeRef = useRef<HTMLHeadingElement>(null);
+  const contactRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // When TitlePage is in view, scroll to the welcome section
+            welcomeRef.current?.scrollIntoView({ behavior: "smooth" });
+            // Disconnect after first trigger to prevent repeated jumps
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2 } // Trigger when 50% of the element is visible
+    );
+
+    if (titlePageRef.current) {
+      observer.observe(titlePageRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <>
+      <div className="custom-gradient">
+        <LandingPage />
+        <div ref={titlePageRef}>
+          <TitlePage />
+        </div>
+      </div>
+      <div ref={welcomeRef} id="about">
+        <AboutPage />
+      </div>
+      <div ref={contactRef} id="contact">
+        <ContactPage />
+      </div>
+    </>
+  );
+}
