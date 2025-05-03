@@ -6,10 +6,12 @@ import LandingPage from "../../components/landing";
 import TitlePage from "../../components/title";
 import AboutPage from "../../components/about";
 import Footer from "../../components/footer";
+import ContactPage from "../../components/contact";
 
 export default function Home() {
   const titlePageRef = useRef<HTMLDivElement>(null);
   const welcomeRef = useRef<HTMLHeadingElement>(null);
+  const contactRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,9 +48,9 @@ export default function Home() {
       <div ref={welcomeRef} id="about">
         <AboutPage />
       </div>
-      <h1>Welcome home!</h1>
-      <Link href="/projects">Projects</Link>
-      <Link href="/experiences">Experiences</Link>
+      <div ref={contactRef} id="contact">
+        <ContactPage />
+      </div>
       <Footer />
     </>
   );
