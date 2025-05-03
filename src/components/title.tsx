@@ -53,7 +53,9 @@ export default function TitlePage({ title = " " }: TitlePageProps) {
         />
       </div>
       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-30">
-        <h1 className="text-white text-4xl font-bold">{title}</h1>
+        <h1 className="text-darkblue text-6xl text-shadow-lg/20 text-shadow-white">
+          {title}
+        </h1>
       </div>
     </div>
   );
