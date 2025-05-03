@@ -4,10 +4,9 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { CSSProperties } from "react";
 
-type MyComponentProps = { style?: React.CSSProperties };
-
-export default function Navbar({ style }: MyComponentProps) {
+export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -42,18 +41,24 @@ export default function Navbar({ style }: MyComponentProps) {
     }
   }, [pathname, searchParams]);
 
-  const handleNavClick = (
+  const handleNavClick = async (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    if (
-      (href.includes("#") && href.split("#")[0] === "") ||
-      href.split("#")[0] === "/"
-    ) {
+    const [path, hash] = href.split("#");
+
+    if (hash) {
       e.preventDefault();
-      const id = href.split("#")[1];
-      scrollToElement(id);
-      window.history.pushState(null, "", href);
+
+      if (pathname !== path) {
+        // Navigate to the correct path first
+        await router.push(path || "/");
+        // Delay to allow page load and DOM to render
+        setTimeout(() => scrollToElement(hash), 100);
+      } else {
+        scrollToElement(hash);
+        window.history.pushState(null, "", href);
+      }
 
       if (isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
@@ -61,13 +66,18 @@ export default function Navbar({ style }: MyComponentProps) {
     }
   };
 
+  const navbarStyle = `block w-full max-w-screen px-4 py-3 mx-auto bg-opacity-0 top-3 z-[9999] ${
+    pathname === "/" ? "absolute" : "fixed"
+  }`;
+
+  const containerClass = `container flex flex-wrap items-center justify-between mx-auto text-slate-800 px-8 rounded-4xl transition duration-150 ${
+    pathname === "/" ? "" : "bg-midblue"
+  }`;
+
   return (
     <div>
-      <nav
-        className="block w-full max-w-screen px-4 py-3 mx-auto bg-opacity-0 top-3 z-[9999]"
-        style={style}
-      >
-        <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
+      <nav className={navbarStyle}>
+        <div className={containerClass}>
           <Link
             href="/"
             className="mr-4 block cursor-pointer py-1.5 text-lightblue font-bold text-2xl hover:text-hoverblue"
