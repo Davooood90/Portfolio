@@ -55,7 +55,7 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen  px-20">
+    <div className="flex flex-col px-80">
       <div className="flex text-lightblue p-8 pt-24 items-center">
         <h1 className="text-6xl mr-4">David Liu</h1>
         <svg
