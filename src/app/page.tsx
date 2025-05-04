@@ -6,25 +6,28 @@ import LandingPage from "../components/landing";
 import TitlePage from "../components/title";
 import AboutPage from "../components/about";
 import ContactPage from "../components/contact";
+import { usePathname } from "next/navigation";
 
 export default function Home() {
+  const pathname = usePathname();
+
   const titlePageRef = useRef<HTMLDivElement>(null);
   const welcomeRef = useRef<HTMLHeadingElement>(null);
   const contactRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
+    if (pathname !== "/" || window.location.hash) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // When TitlePage is in view, scroll to the welcome section
             welcomeRef.current?.scrollIntoView({ behavior: "smooth" });
-            // Disconnect after first trigger to prevent repeated jumps
             observer.disconnect();
           }
         });
       },
-      { threshold: 0.2 } // Trigger when 50% of the element is visible
+      { threshold: 0.2 }
     );
 
     if (titlePageRef.current) {
@@ -34,7 +37,7 @@ export default function Home() {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <>

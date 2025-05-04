@@ -51,13 +51,11 @@ export default function Navbar() {
       e.preventDefault();
 
       if (pathname !== path) {
-        // Navigate to the correct path first
-        await router.push(path || "/");
-        // Delay to allow page load and DOM to render
+        await router.push(`${path}#${hash}`);
         setTimeout(() => scrollToElement(hash), 100);
       } else {
         scrollToElement(hash);
-        window.history.pushState(null, "", href);
+        window.history.pushState(null, "", `#${hash}`);
       }
 
       if (isMobileMenuOpen) {
