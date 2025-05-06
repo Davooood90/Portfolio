@@ -16,6 +16,50 @@
   --font-jersey: "Jersey 25", sans-serif;
 }
 
+@layer utilities {
+  @keyframes fadeInOutSlow {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInOutMedium {
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInOutFast {
+    0%,
+    100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-slow {
+    animation: fadeInOutSlow 4.8s ease-in-out infinite;
+  }
+
+  .animate-fade-medium {
+    animation: fadeInOutMedium 4s ease-in-out infinite;
+  }
+
+  .animate-fade-fast {
+    animation: fadeInOutFast 2.5s ease-in-out infinite;
+  }
+}
+
 .custom-gradient {
   background: linear-gradient(
     to bottom,

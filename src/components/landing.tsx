@@ -74,36 +74,60 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen px-80">
-      <div className="min-w-[1200px] text-left">
-        <h1 className="text-8xl text-lightblue">Hi, I'm David Liu</h1>
-        <h2 className="text-4xl text-lightblue my-4">
-          Your future{" "}
-          <span className="text-hoverblue inline-block">{text}</span>
-        </h2>
-        <div className="flex gap-4">
-          <a href="/#about" onClick={(e) => handleNavClick(e, "/#about")}>
-            <button className="flex cursor-pointer bg-transparent text-lightblue border-2 px-5 py-1 rounded-lg text-xl hover:opacity-[80%] transition duration-300 transform hover:-translate-y-1">
-              Learn More
-            </button>
-          </a>
-          <a href="https://Google.com" target="_blank">
-            <button className="flex cursor-pointer bg-transparent text-lightblue border-2 px-5 py-1 rounded-lg text-xl hover:opacity-[80%] transition duration-300 transform hover:-translate-y-1">
-              Resume
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 18 24"
-                className="ml-1"
-              >
-                <path
-                  fill="currentColor"
-                  d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"
-                />
-              </svg>
-            </button>
-          </a>
+    <div className="relative w-full h-screen">
+      <img
+        src="/small-stars.png"
+        alt="small stars"
+        className="absolute inset-0 w-full h-full object-cover z-0 animate-fade-medium"
+      />
+      <img
+        src="/med-stars.png"
+        alt="medium stars"
+        className="absolute inset-0 w-full h-full object-cover z-1 animate-fade-fast"
+      />
+      <img
+        src="/big-stars.png"
+        alt="big stars"
+        className="absolute inset-0 w-full h-full object-cover z-2 animate-fade-slow"
+      />
+      <img
+        src="/lights.png"
+        alt="northern lights"
+        className="absolute inset-0 w-full h-full object-cover z-3"
+      />
+      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-30">
+        <div className="flex flex-col items-center justify-center h-screen px-80">
+          <div className="min-w-[1200px] text-left">
+            <h1 className="text-8xl text-lightblue">Hi, I'm David Liu</h1>
+            <h2 className="text-4xl text-lightblue my-4">
+              Your future{" "}
+              <span className="text-hoverblue inline-block">{text}</span>
+            </h2>
+            <div className="flex gap-4">
+              <a href="/#about" onClick={(e) => handleNavClick(e, "/#about")}>
+                <button className="flex cursor-pointer bg-transparent text-lightblue border-2 px-5 py-1 rounded-lg text-xl hover:opacity-[80%] transition duration-300 transform hover:-translate-y-1">
+                  Learn More
+                </button>
+              </a>
+              <a href="https://Google.com" target="_blank">
+                <button className="flex cursor-pointer bg-transparent text-lightblue border-2 px-5 py-1 rounded-lg text-xl hover:opacity-[80%] transition duration-300 transform hover:-translate-y-1">
+                  Resume
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 18 24"
+                    className="ml-1"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"
+                    />
+                  </svg>
+                </button>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

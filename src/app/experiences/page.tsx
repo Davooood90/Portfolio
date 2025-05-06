@@ -1,5 +1,8 @@
+"use client";
+
 import TitlePage from "../../components/title";
 import TimeCard from "../../components/timecard";
+import { motion } from "framer-motion";
 
 const timelineItems = [
   {
@@ -34,10 +37,20 @@ const timelineItems = [
 export default function Experiences() {
   return (
     <>
-      <TitlePage title="My Experiences" />{" "}
+      <div className="custom-gradient">
+        <TitlePage title="My Experiences" />
+      </div>
       <div className="relative py-8">
         {timelineItems.map((item, index) => (
-          <TimeCard key={index} item={item} />
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ delay: index * 0.15, duration: 0.6 }}
+          >
+            <TimeCard item={item} />
+          </motion.div>
         ))}
 
         <div className="absolute left-1/2 top-0 bottom-0 w-3 bg-waterblue transform -translate-x-1/2"></div>

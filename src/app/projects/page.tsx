@@ -1,5 +1,8 @@
+"use client";
+
 import TitlePage from "../../components/title";
 import InfoCard from "../../components/infocard";
+import { motion } from "framer-motion";
 
 const projectItems = [
   {
@@ -37,10 +40,20 @@ const projectItems = [
 export default function Projects() {
   return (
     <>
-      <TitlePage title="My Projects" />{" "}
+      <div className="custom-gradient">
+        <TitlePage title="My Projects" />
+      </div>
       <div className="py-16">
         {projectItems.map((item, index) => (
-          <InfoCard key={index} item={item} />
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ delay: index * 0.15, duration: 0.6 }}
+          >
+            <InfoCard item={item} />
+          </motion.div>
         ))}
       </div>
     </>
