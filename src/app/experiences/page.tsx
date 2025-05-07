@@ -6,30 +6,30 @@ import { motion } from "framer-motion";
 
 const timelineItems = [
   {
-    startDate: "Start Date",
-    endDate: "End Date",
-    position: "Position Title",
-    company: "Company Name",
+    startDate: "Oct 2024",
+    endDate: "May 2025",
+    position: "First Year Representative",
+    company: "UBC GDSC",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Contributed to the Developer Student Clubs (GDSC) chapter at UBC by collaborating with the development team and supporting event organization and outreach initiatives. Created presentations for key student-focused events, including resume review workshops and LeetCode preparation sessions. Gained experience in technical communication, team collaboration, and supporting a large student tech community through accessible, educational content.",
     side: "left" as const,
   },
   {
-    startDate: "Start Date",
-    endDate: "End Date",
-    position: "Position Title",
-    company: "Company Name",
+    startDate: "September 2024",
+    endDate: "May 2025",
+    position: "Junior Developer",
+    company: "BOLT UBC",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Contributed to the development of internal tools and event platforms at BOLT UBC as a Junior Developer. Led front-end development for the BOLT Bootcamp Portal, a centralized web app for registration, event schedules, and case submissions.Also developed the First Byte Webpage, a lightweight site providing resources, guidance, and tips to help participants succeed in BOLT UBC’s First Byte Datathon. Focused on clear information architecture and responsive design. Gained experience in collaborative development workflows, version control, and front-end best practices across both projects.",
     side: "right" as const,
   },
   {
-    startDate: "Start Date",
-    endDate: "End Date",
-    position: "Position Title",
-    company: "Company Name",
+    startDate: "Sept 2021",
+    endDate: "May 2024",
+    position: "Windows Server Specialist",
+    company: "Cyber Patriots",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Worked as part of a competitive cybersecurity team focused on securing Windows Server environments during timed challenges that simulated real-world cyber attacks. Gained hands-on experience with Windows Server hardening, Active Directory, and threat response strategies in high-pressure, team-based environments. Contributed to consistent top-tier placements at the national level: National Champion (2024), National Finalist (2022, 2023, 2024), and State Champion (2023).",
     side: "left" as const,
   },
 ];
