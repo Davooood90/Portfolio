@@ -95,11 +95,13 @@ export default function LandingPage() {
         alt="northern lights"
         className="absolute inset-0 w-full h-full object-cover z-3"
       />
-      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-30">
-        <div className="flex flex-col items-center justify-center h-screen px-80">
-          <div className="min-w-[1200px] text-left">
-            <h1 className="text-8xl text-lightblue">Hi, I'm David Liu</h1>
-            <h2 className="text-4xl text-lightblue my-4">
+      <div className="absolute top-0 left-0 w-full max-w-screen px-4 py-3 h-full z-30">
+        <div className="container flex flex-col justify-center h-screen px-4 lg:px-25 mx-auto">
+          <div className="text-left">
+            <h1 className="text-5xl md:text-8xl text-lightblue">
+              Hi, I'm David Liu
+            </h1>
+            <h2 className="text-2xl md:text-4xl text-lightblue my-4">
               Your future{" "}
               <span className="text-hoverblue inline-block">{text}</span>
             </h2>

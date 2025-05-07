@@ -47,11 +47,13 @@ export default function Home() {
           <TitlePage />
         </div>
       </div>
-      <div ref={welcomeRef} id="about">
-        <AboutPage />
-      </div>
-      <div ref={contactRef} id="contact">
-        <ContactPage />
+      <div className="my-8 lg:my-16">
+        <div ref={welcomeRef} id="about">
+          <AboutPage />
+        </div>
+        <div ref={contactRef} id="contact">
+          <ContactPage />
+        </div>
       </div>
     </>
   );

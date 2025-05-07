@@ -11,9 +11,8 @@ export default function Footer() {
             Copyright © David Liu 2025
           </p>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:block">
-            <ul className="flex flex-col gap-0 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center ">
+          <div className="block">
+            <ul className="flex gap-0 mt-2 mb-0 mt-0 flex-row items-center ">
               <li className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl">
                 <Link
                   href="https://www.linkedin.com/in/davidliu906/"
