@@ -57,10 +57,10 @@ export default function Navbar() {
         scrollToElement(hash);
         window.history.pushState(null, "", `#${hash}`);
       }
+    }
 
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -68,9 +68,7 @@ export default function Navbar() {
     pathname === "/" ? "absolute" : "fixed"
   }`;
 
-  const containerClass = `container flex flex-wrap items-center justify-between mx-auto text-slate-800 px-8 rounded-4xl transition duration-150 ${
-    pathname === "/" ? "" : "bg-midblue"
-  }`;
+  const containerClass = `container flex flex-wrap items-center justify-between mx-auto text-slate-800 px-8 rounded-4xl transition duration-150 bg-darkblue/80 backdrop-blur-md backdrop-saturate-150`;
 
   return (
     <div>
@@ -89,41 +87,7 @@ export default function Navbar() {
               onClick={toggleMobileMenu}
               type="button"
             >
-              <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
-                </svg>
-              </span>
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          <div
-            className={`fixed top-0 left-0 min-h-screen w-64 bg-slate-100 shadow-lg transform transition-transform duration-300 ease-in-out ${
-              isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-            } lg:hidden z-50`}
-          >
-            <div className="flex flex-row items-center border-b pb-4">
-              <Link
-                href="/"
-                className="cursor-pointer font-bold text-xl pt-4 ps-4"
-              >
-                David Liu
-              </Link>
-              <button
-                onClick={toggleMobileMenu}
-                className="absolute top-4 right-4 text-slate-600 hover:text-red-500"
-              >
+              {isMobileMenuOpen ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-8 h-8"
@@ -137,24 +101,22 @@ export default function Navbar() {
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
-              </button>
-            </div>
-            <ul className="flex flex-col h-full gap-4 p-4">
-              {navItems.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center p-1 text-lg gap-x-2 text-slate-600 hover:text-hoverblue"
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
                 >
-                  <Link
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
-                    className="flex items-center"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  ></path>
+                </svg>
+              )}
+            </button>
           </div>
 
           {/* Desktop Menu */}
@@ -176,6 +138,29 @@ export default function Navbar() {
               ))}
             </ul>
           </div>
+        </div>
+        {/* Mobile Dropdown Menu */}
+        <div className="container mx-auto flex justify-end">
+          {isMobileMenuOpen && (
+            <div className="w-[180px] right-0 mt-2 bg-midblue/80 backdrop-blur-md backdrop-saturate-150 shadow-md rounded-3xl z-50 lg:hidden">
+              <ul className="flex flex-col p-6 gap-2">
+                {navItems.map((item, index) => (
+                  <li
+                    key={index}
+                    className="text-lightblue hover:text-hoverblue text-xl"
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item.href)}
+                      className="block"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </nav>
     </div>
