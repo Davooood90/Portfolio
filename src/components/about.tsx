@@ -155,7 +155,7 @@ export default function AboutPage() {
                   {opposite.map((word, index) => (
                     <p
                       key={index}
-                      className="text-m text-descgrey pl-2 pr-2 border-descgrey border-2 mr-2 rounded-2xl"
+                      className="text-m text-descgrey pl-2 pr-2 border-descgrey border-2 mr-2 rounded-2xl whitespace-nowrap"
                     >
                       {word}
                     </p>

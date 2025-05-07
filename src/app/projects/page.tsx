@@ -19,6 +19,14 @@ const projectItems = [
       start: "Jan 2024",
       end: "Apr 2024",
     },
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Node.js",
+      "Puppeteer",
+      "OpenAI API",
+    ],
   },
   {
     projectName: "Project Name",
@@ -34,6 +42,14 @@ const projectItems = [
       start: "Jan 2024",
       end: "Apr 2024",
     },
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Node.js",
+      "Puppeteer",
+      "OpenAI API",
+    ],
   },
 ];
 
