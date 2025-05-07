@@ -30,27 +30,39 @@ export default function TimeCard({ item }: TimelineProps) {
   );
 
   return (
-    <>
-      <div className="flex relative my-8 mx-80 min-h-[300px]">
-        <div
-          className={`w-1/2 rounded-l-3xl p-6 flex flex-column items-center justify-center text-lightblue ${
-            item.side === "left" ? "bg-midblue" : "bg-cardblue"
-          }`}
-        >
-          {item.side === "left" ? company : content}
+    <div className="md:mx-auto container">
+      <div className="md:flex relative my-8 mx-3 md:mx-2 md:min-h-[300px]">
+        {/* Mobile view */}
+        <div className="flex flex-col w-full md:hidden">
+          <div className="rounded-tr-3xl p-6 flex flex-col items-center justify-center text-lightblue bg-midblue">
+            {company}
+          </div>
+          <div className="rounded-br-3xl p-6 flex flex-col items-center justify-center text-lightblue bg-cardblue">
+            {content}
+          </div>
         </div>
 
-        <div
-          className={`w-1/2 rounded-r-3xl p-6 flex flex-column items-center justify-center text-lightblue ${
-            item.side === "right" ? "bg-midblue" : "bg-cardblue"
-          }`}
-        >
-          {item.side === "right" ? company : content}
+        {/* Desktop view */}
+        <div className="hidden md:flex w-full">
+          <div
+            className={`w-1/2 rounded-l-3xl p-6 flex flex-col items-center justify-center text-lightblue ${
+              item.side === "left" ? "bg-midblue" : "bg-cardblue"
+            }`}
+          >
+            {item.side === "left" ? company : content}
+          </div>
+
+          <div
+            className={`w-1/2 rounded-r-3xl p-6 flex flex-col items-center justify-center text-lightblue ${
+              item.side === "right" ? "bg-midblue" : "bg-cardblue"
+            }`}
+          >
+            {item.side === "right" ? company : content}
+          </div>
         </div>
 
-        <div className="absolute left-1/2 top-1/2 h-8 w-8 rounded-2xl bg-waterblue transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="hidden md:block absolute left-1/2 top-1/2 h-8 w-8 rounded-full bg-waterblue transform -translate-x-1/2 -translate-y-1/2"></div>
       </div>
-      <div className="absolute left-1/2 top-0 bottom-0 w-3 bg-waterblue transform -translate-x-1/2"></div>
-    </>
+    </div>
   );
 }

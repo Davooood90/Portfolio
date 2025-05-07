@@ -53,7 +53,7 @@ export default function Experiences() {
           </motion.div>
         ))}
 
-        <div className="absolute left-1/2 top-0 bottom-0 w-3 bg-waterblue transform -translate-x-1/2"></div>
+        <div className="absolute left-3 md:left-1/2 top-0 bottom-0 w-3 bg-waterblue transform -translate-x-1/2"></div>
       </div>
     </>
   );
