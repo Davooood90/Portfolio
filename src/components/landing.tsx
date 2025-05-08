@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export default function LandingPage() {
   const [text, setText] = useState("");
@@ -75,24 +76,28 @@ export default function LandingPage() {
 
   return (
     <div className="relative w-full h-screen">
-      <img
+      <Image
         src="/small-stars.png"
         alt="small stars"
+        fill
         className="absolute inset-0 w-full h-full object-cover z-0 animate-fade-medium"
       />
-      <img
+      <Image
         src="/med-stars.png"
         alt="medium stars"
+        fill
         className="absolute inset-0 w-full h-full object-cover z-1 animate-fade-fast"
       />
-      <img
+      <Image
         src="/big-stars.png"
         alt="big stars"
+        fill
         className="absolute inset-0 w-full h-full object-cover z-2 animate-fade-slow"
       />
-      <img
+      <Image
         src="/lights.png"
         alt="northern lights"
+        fill
         className="absolute inset-0 w-full h-full object-cover z-3"
       />
       <div className="absolute top-0 left-0 w-full max-w-screen px-4 py-3 h-full z-30">

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 interface TitlePageProps {
   title?: string;
@@ -25,24 +26,28 @@ export default function TitlePage({ title = " " }: TitlePageProps) {
         pathname === "/" ? "" : "h-screen"
       }`}
     >
-      <img
+      <Image
         src="/small-stars.png"
         alt="small stars"
+        fill
         className="absolute inset-0 w-full h-full object-cover z-0 animate-fade-medium"
       />
-      <img
+      <Image
         src="/med-stars.png"
         alt="medium stars"
+        fill
         className="absolute inset-0 w-full h-full object-cover z-1 animate-fade-fast"
       />
-      <img
+      <Image
         src="/big-stars.png"
         alt="big stars"
+        fill
         className="absolute inset-0 w-full h-full object-cover z-2 animate-fade-slow"
       />
-      <img
+      <Image
         src="/backdrop.png"
         alt="Background"
+        fill
         className="absolute inset-0 w-full h-full object-cover z-3"
       />
 
@@ -53,9 +58,10 @@ export default function TitlePage({ title = " " }: TitlePageProps) {
           transition: "transform 0.1s ease-out",
         }}
       >
-        <img
+        <Image
           src="/right-iceberg.png"
           alt="Layer 3"
+          fill
           className="w-full h-full object-cover"
         />
       </div>
@@ -67,9 +73,10 @@ export default function TitlePage({ title = " " }: TitlePageProps) {
           transition: "transform 0.1s ease-out",
         }}
       >
-        <img
+        <Image
           src="/left-iceberg.png"
           alt="Layer 3"
+          fill
           className="w-full h-full object-cover"
         />
       </div>

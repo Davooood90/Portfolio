@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 interface ProjectLink {
   title: string;
@@ -63,7 +64,13 @@ export default function InfoCard({ item }: ProjectProps) {
         <div className="md:flex bg-midblue m-8 mt-0 rounded-2xl overflow-hidden">
           {/* Image Section */}
           <div className="w-full md:w-3/7">
-            <img src={item.imagePath} className="object-cover w-full h-full" />
+            <Image
+              src={item.imagePath}
+              width={1000}
+              height={1000}
+              alt="Project Image"
+              className="object-cover w-full h-full"
+            />
           </div>
 
           {/* Description Section */}

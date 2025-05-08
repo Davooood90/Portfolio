@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import LandingPage from "../components/landing";
 import TitlePage from "../components/title";
 import AboutPage from "../components/about";
-import ContactPage from "../components/contact";
+// import ContactPage from "../components/contact";
 import { usePathname } from "next/navigation";
 
 export default function Home() {
@@ -13,7 +12,7 @@ export default function Home() {
 
   const titlePageRef = useRef<HTMLDivElement>(null);
   const welcomeRef = useRef<HTMLHeadingElement>(null);
-  const contactRef = useRef<HTMLHeadingElement>(null);
+  // const contactRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     if (pathname !== "/" || window.location.hash) return;

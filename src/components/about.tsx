@@ -104,7 +104,7 @@ export default function AboutPage() {
             <img
               src="/person.png"
               alt="Photo of David Liu"
-              className="object-cover w-full h-full"
+              className="object-cover"
             />
           </div>
 
