@@ -2,7 +2,6 @@ import Navbar from "../components/navbar";
 import "./index.css";
 import Footer from "../components/footer";
 import React, { Suspense } from "react";
-import Head from "next/head";
 
 export const metadata = {
   title: "David's Portfolio",
