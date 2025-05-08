@@ -108,7 +108,7 @@ export default function LandingPage() {
               Hi, I&apos;m David Liu
             </h1>
             <h2 className="text-2xl md:text-4xl text-lightblue my-4">
-              Your future
+              Your future{" "}
               <span className="text-hoverblue inline-block">{text}</span>
             </h2>
             <div className="flex gap-4">

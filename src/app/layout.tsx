@@ -5,8 +5,7 @@ import React, { Suspense } from "react";
 
 export const metadata = {
   title: "David's Portfolio",
-  description:
-    "Hi! My name is David. I am a Computer Science student at the University of British Columbia, graduating 2028.",
+  description: "Hi! My name is David and welcome to my corner of the internet!",
 };
 
 export default function RootLayout({
@@ -17,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-darkblue">
       <body className="font-jersey">
-        <Suspense fallback={<div>Loading experiences...</div>}>
+        <Suspense fallback={<div>Loading...</div>}>
           <Navbar />
           {children}
           <Footer />
