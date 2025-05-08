@@ -88,7 +88,10 @@ export default function AboutPage() {
                 Projects
               </button>
             </a>
-            <a href="/">
+            <a
+              href="https://drive.google.com/file/d/14SUdo8Gye6ksOQmTYIkGSFlUy-vPMyay/view?usp=sharing"
+              target="_blank"
+            >
               <button className="cursor-pointer bg-midblue p-2 px-6 lg:px-8 text-md lg:text-xl rounded-3xl border-1 border-midblue hover:border-lightblue transition duration-300">
                 Resume
               </button>
@@ -136,26 +139,28 @@ export default function AboutPage() {
             <div className="ml-2 text-lg">
               A student at the University of British Columbia (Class of 2028),
               passionate about technology.
-              <div className="flex items-center mt-2 mb-3">
-                <p className="text-descgreen mr-2">Similar:</p>
-                <div className="flex overflow-x-auto scrollbar-hide">
+              <div className="flex  mt-2 mb-3">
+                <div className="flex flex-wrap items-center">
+                  <p className="text-descgreen mr-2">Similar:</p>
+
                   {similar.map((word, index) => (
                     <p
                       key={index}
-                      className="text-m text-descgrey pl-2 pr-2 border-descgrey border-2 mr-2 rounded-2xl whitespace-nowrap"
+                      className="text-m text-descgrey pl-2 pr-2 my-1  border-descgrey border-2 mr-2 rounded-2xl whitespace-nowrap"
                     >
                       {word}
                     </p>
                   ))}
                 </div>
               </div>
-              <div className="flex items-center mt-3 mb-2">
-                <p className="text-descred mr-2">Opposite:</p>
-                <div className="flex overflow-x-auto scrollbar-hide">
+              <div className="flex mt-3 mb-2">
+                <div className="flex flex-wrap items-center">
+                  <p className="text-descred mr-2">Opposite:</p>
+
                   {opposite.map((word, index) => (
                     <p
                       key={index}
-                      className="text-m text-descgrey pl-2 pr-2 border-descgrey border-2 mr-2 rounded-2xl whitespace-nowrap"
+                      className="text-m text-descgrey pl-2 my-1 pr-2 border-descgrey border-2 mr-2 rounded-2xl whitespace-nowrap"
                     >
                       {word}
                     </p>

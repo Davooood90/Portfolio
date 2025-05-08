@@ -51,9 +51,9 @@ export default function Home() {
         <div ref={welcomeRef} id="about">
           <AboutPage />
         </div>
-        <div ref={contactRef} id="contact">
+        {/* <div ref={contactRef} id="contact">
           <ContactPage />
-        </div>
+        </div> */}
       </div>
     </>
   );

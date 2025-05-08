@@ -18,7 +18,7 @@ export default function Navbar() {
     { name: "About", href: "/#about" },
     { name: "Experiences", href: "/experiences" },
     { name: "Projects", href: "/projects" },
-    { name: "Contact", href: "/#contact" },
+    // { name: "Contact", href: "/#contact" },
   ];
 
   const router = useRouter();

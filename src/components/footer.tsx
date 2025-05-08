@@ -17,6 +17,7 @@ export default function Footer() {
                 <Link
                   href="https://www.linkedin.com/in/davidliu906/"
                   className="flex items-center"
+                  target="_blank"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -35,6 +36,7 @@ export default function Footer() {
                 <Link
                   href="https://github.com/Davooood90"
                   className="flex items-center"
+                  target="_blank"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -53,6 +55,7 @@ export default function Footer() {
                 <Link
                   href="https://www.instagram.com/davoooodliu/"
                   className="flex items-center"
+                  target="_blank"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +71,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl">
-                <Link href="" className="flex items-center">
+                <Link
+                  href="https://drive.google.com/file/d/14SUdo8Gye6ksOQmTYIkGSFlUy-vPMyay/view?usp=sharing"
+                  target="_blank"
+                  className="flex items-center"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

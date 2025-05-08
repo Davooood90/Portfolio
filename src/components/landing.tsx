@@ -111,7 +111,10 @@ export default function LandingPage() {
                   Learn More
                 </button>
               </a>
-              <a href="https://Google.com" target="_blank">
+              <a
+                href="https://drive.google.com/file/d/14SUdo8Gye6ksOQmTYIkGSFlUy-vPMyay/view?usp=sharing"
+                target="_blank"
+              >
                 <button className="flex cursor-pointer bg-transparent text-lightblue border-2 px-5 py-1 rounded-lg text-xl hover:opacity-[80%] transition duration-300 transform hover:-translate-y-1">
                   Resume
                   <svg
