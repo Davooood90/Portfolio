@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function AboutPage() {
   const similar = [
@@ -39,21 +40,6 @@ export default function AboutPage() {
     }
   }, [pathname, searchParams]);
 
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    if (
-      (href.includes("#") && href.split("#")[0] === "") ||
-      href.split("#")[0] === "/"
-    ) {
-      e.preventDefault();
-      const id = href.split("#")[1];
-      scrollToElement(id);
-      window.history.pushState(null, "", href);
-    }
-  };
-
   return (
     <div className="w-full max-w-screen lg:px-4 py-3 flex flex-col">
       <div className="container mx-auto">
@@ -73,29 +59,29 @@ export default function AboutPage() {
             </svg>
           </div>
           <div className="flex gap-6 overflow-x-auto scrollbar-hide mt-4 md:mt-0 md:ml-4">
-            <a href="/#about">
+            <Link href="/#about">
               <button className="cursor-pointer bg-midblue p-2 px-6 lg:px-8 text-md lg:text-xl rounded-3xl border-1 border-midblue hover:border-lightblue transition duration-300">
                 Overview
               </button>
-            </a>
-            <a href="/experiences">
+            </Link>
+            <Link href="/experiences">
               <button className="cursor-pointer bg-midblue p-2 px-6 lg:px-8 text-md lg:text-xl rounded-3xl border-1 border-midblue hover:border-lightblue transition duration-300">
                 Experiences
               </button>
-            </a>
-            <a href="/projects">
+            </Link>
+            <Link href="/projects">
               <button className="cursor-pointer bg-midblue p-2 px-6 lg:px-8 text-md lg:text-xl rounded-3xl border-1 border-midblue hover:border-lightblue transition duration-300">
                 Projects
               </button>
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://drive.google.com/file/d/14SUdo8Gye6ksOQmTYIkGSFlUy-vPMyay/view?usp=sharing"
               target="_blank"
             >
               <button className="cursor-pointer bg-midblue p-2 px-6 lg:px-8 text-md lg:text-xl rounded-3xl border-1 border-midblue hover:border-lightblue transition duration-300">
                 Resume
               </button>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="md:flex bg-midblue m-8 mt-0 rounded-2xl overflow-hidden">

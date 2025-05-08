@@ -1,6 +1,7 @@
 import Navbar from "../components/navbar";
 import "./index.css";
 import Footer from "../components/footer";
+import React, { Suspense } from "react";
 
 export const metadata = {
   title: "David's Portfolio",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-darkblue">
       <body className="font-jersey">
-        <Navbar />
-        {children}
-        <Footer />
+        <Suspense fallback={<div>Loading experiences...</div>}>
+          <Navbar />
+          {children}
+          <Footer />
+        </Suspense>
       </body>
     </html>
   );

@@ -14,33 +14,15 @@ export default function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await res.json();
-
-      if (res.ok) {
-        alert("Message sent!");
-        setFormData({ name: "", email: "", message: "" }); // Clear form
-      } else {
-        alert(`Error: ${result.error}`);
-      }
-    } catch (err) {
-      console.error("Submission error:", err);
-      alert("Something went wrong. Please try again.");
-    }
-  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   console.log(formData);
+  //   // Replace with api to backend
+  // };
   return (
     <div className="w-full max-w-screen px-4 py-3">
       <form
-        className="container flex flex-col text-lightblue text-center m-8 max-w-[600px] mx-auto "
+        className="container flex flex-col text-lightblue text-center m-8 max-w-[800px] mx-auto "
         autoComplete="off"
       >
         <h2 className="text-4xl lg:text-6xl">Contact Me</h2>

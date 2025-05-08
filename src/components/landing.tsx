@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LandingPage() {
   const [text, setText] = useState("");
@@ -104,18 +105,21 @@ export default function LandingPage() {
         <div className="container flex flex-col justify-center h-screen px-4 lg:px-25 mx-auto">
           <div className="text-left">
             <h1 className="text-5xl md:text-8xl text-lightblue">
-              Hi, I'm David Liu
+              Hi, I&apos;m David Liu
             </h1>
             <h2 className="text-2xl md:text-4xl text-lightblue my-4">
-              Your future{" "}
+              Your future
               <span className="text-hoverblue inline-block">{text}</span>
             </h2>
             <div className="flex gap-4">
-              <a href="/#about" onClick={(e) => handleNavClick(e, "/#about")}>
+              <Link
+                href="/#about"
+                onClick={(e) => handleNavClick(e, "/#about")}
+              >
                 <button className="flex cursor-pointer bg-transparent text-lightblue border-2 px-5 py-1 rounded-lg text-xl hover:opacity-[80%] transition duration-300 transform hover:-translate-y-1">
                   Learn More
                 </button>
-              </a>
+              </Link>
               <a
                 href="https://drive.google.com/file/d/14SUdo8Gye6ksOQmTYIkGSFlUy-vPMyay/view?usp=sharing"
                 target="_blank"
