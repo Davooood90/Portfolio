@@ -2,6 +2,7 @@ import Navbar from "../components/navbar";
 import "./index.css";
 import Footer from "../components/footer";
 import React, { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "David's Portfolio",
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Suspense fallback={<div>Loading...</div>}>
           <Navbar />
           {children}
+          <Analytics />
           <Footer />
         </Suspense>
       </body>
