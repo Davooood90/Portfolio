@@ -1,24 +1,34 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function AboutPage() {
-  const similar = [
-    "Driven",
-    "Curious",
-    "Open-minded",
-    "Friendly",
-    "Adaptable",
-    "Reliable",
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handlePlay = () => {
+    if (audioRef.current) {
+      audioRef.current.play().catch((err) => {
+        console.error("Audio playback failed:", err);
+      });
+    }
+  };
+
+  const likes = [
+    "Badminton",
+    "Volleyball",
+    "Hockey",
+    "Piano",
+    "Bubble Tea",
+    "Gaming",
   ];
-  const opposite = [
-    "Disorganized",
-    "Stubborn",
-    "Impatient",
-    "Moody",
-    "Procrastinator",
-    "Controlling",
+  const dislikes = [
+    "Slow Wifi",
+    "Low Battery",
+    "Autocorrect Fails",
+    "Sticky Keyboards",
+    "Pop-up Ads",
   ];
 
   const scrollToElement = (id: string) => {
@@ -87,10 +97,12 @@ export default function AboutPage() {
         <div className="md:flex bg-midblue m-8 mt-0 rounded-2xl overflow-hidden">
           {/* Image Section */}
           <div className="w-full md:w-3/7">
-            <img
+            <Image
               src="/person.png"
+              width={1000}
+              height={1000}
               alt="Photo of David Liu"
-              className="object-cover"
+              className="object-cover w-full h-full"
             />
           </div>
 
@@ -98,7 +110,11 @@ export default function AboutPage() {
           <div className="w-full md:w-4/7 p-6 text-lightblue flex flex-col justify-center">
             <div className="flex items-center mb-4">
               <div className="mr-3">
-                <div className="bg-blue-200 p-2 rounded-full cursor-pointer">
+                <audio ref={audioRef} src="/audio/name.m4a" preload="auto" />
+                <div
+                  className="bg-blue-200 p-2 rounded-full cursor-pointer"
+                  onClick={handlePlay}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-[18px] h-[18px]"
@@ -118,7 +134,7 @@ export default function AboutPage() {
 
               <div className="flex md:flex-col justify-center items-baseline">
                 <h1 className="text-2xl md:text-2xl/5">Da·vid Li·u</h1>
-                <h2 className="text-m ml-3 md:ml-0">/ˈdeɪ.vɪd lɪʊ/</h2>
+                <h2 className="text-m ml-3 md:ml-0">/ˈdeɪ.vɪd ljóʊ/</h2>
               </div>
             </div>
             <p className="text-m text-descgrey">noun</p>
@@ -127,9 +143,9 @@ export default function AboutPage() {
               passionate about technology.
               <div className="flex  mt-2 mb-3">
                 <div className="flex flex-wrap items-center">
-                  <p className="text-descgreen mr-2">Similar:</p>
+                  <p className="text-descgreen mr-2">Likes:</p>
 
-                  {similar.map((word, index) => (
+                  {likes.map((word, index) => (
                     <p
                       key={index}
                       className="text-m text-descgrey pl-2 pr-2 my-1  border-descgrey border-2 mr-2 rounded-2xl whitespace-nowrap"
@@ -141,9 +157,9 @@ export default function AboutPage() {
               </div>
               <div className="flex mt-3 mb-2">
                 <div className="flex flex-wrap items-center">
-                  <p className="text-descred mr-2">Opposite:</p>
+                  <p className="text-descred mr-2">Dislikes:</p>
 
-                  {opposite.map((word, index) => (
+                  {dislikes.map((word, index) => (
                     <p
                       key={index}
                       className="text-m text-descgrey pl-2 my-1 pr-2 border-descgrey border-2 mr-2 rounded-2xl whitespace-nowrap"
@@ -162,8 +178,8 @@ export default function AboutPage() {
                 </li>
                 <li className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:top-0 style-indent">
                   <span className="block">
-                    Enjoys playing badminton, volleyball, and piano, as well as
-                    watching hockey
+                    Values creative problem-solving, teamwork, and tackling
+                    tough challenges
                   </span>
                 </li>
                 <li className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:top-0 style-indent">
