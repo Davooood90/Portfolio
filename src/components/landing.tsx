@@ -121,7 +121,7 @@ export default function LandingPage() {
                 </button>
               </Link>
               <a
-                href="https://drive.google.com/file/d/14SUdo8Gye6ksOQmTYIkGSFlUy-vPMyay/view?usp=sharing"
+                href="https://drive.google.com/file/d/1NU5psM7sR1VwcNEGCcB_RyZ5Dfnb7zd1/view?usp=sharing"
                 target="_blank"
               >
                 <button className="flex cursor-pointer bg-transparent text-lightblue border-2 px-5 py-1 rounded-lg text-xl hover:opacity-[80%] transition duration-300 transform hover:-translate-y-1">

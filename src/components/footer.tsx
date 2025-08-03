@@ -89,7 +89,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl">
                 <Link
-                  href="https://drive.google.com/file/d/14SUdo8Gye6ksOQmTYIkGSFlUy-vPMyay/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1NU5psM7sR1VwcNEGCcB_RyZ5Dfnb7zd1/view?usp=sharing"
                   target="_blank"
                   className="flex items-center"
                 >

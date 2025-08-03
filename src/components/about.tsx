@@ -85,7 +85,7 @@ export default function AboutPage() {
               </button>
             </Link>
             <Link
-              href="https://drive.google.com/file/d/14SUdo8Gye6ksOQmTYIkGSFlUy-vPMyay/view?usp=sharing"
+              href="https://drive.google.com/file/d/1NU5psM7sR1VwcNEGCcB_RyZ5Dfnb7zd1/view?usp=sharing"
               target="_blank"
             >
               <button className="cursor-pointer bg-midblue p-2 px-6 lg:px-8 text-md lg:text-xl rounded-3xl border-1 border-midblue hover:border-lightblue transition duration-300">
