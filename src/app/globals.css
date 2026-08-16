@@ -1,24 +1,69 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: oklch(0.98 0.003 260);
+  --bg-nav: oklch(0.98 0.003 260 / 0.9);
+  --bg-surface: oklch(0.94 0.004 260);
+  --bg-terminal: oklch(0.16 0.005 260);
+
+  --text: oklch(0.2 0.006 260);
+  --text-strong: oklch(0.12 0.006 260);
+  --text-body: oklch(0.32 0.006 260);
+  --text-muted: oklch(0.42 0.006 260);
+  --text-dim: oklch(0.48 0.006 260);
+  --text-faint: oklch(0.55 0.006 260);
+
+  --border: oklch(0.86 0.006 260);
+  --border-strong: oklch(0.8 0.006 260);
+
+  --accent: oklch(0.75 0.14 165);
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --bg: oklch(0.15 0.003 260);
+  --bg-nav: oklch(0.15 0.003 260 / 0.9);
+  --bg-surface: oklch(0.19 0.004 260);
+  --bg-terminal: oklch(0.12 0.003 260);
+
+  --text: oklch(0.92 0.003 260);
+  --text-strong: oklch(0.95 0.003 260);
+  --text-body: oklch(0.78 0.005 260);
+  --text-muted: oklch(0.72 0.006 260);
+  --text-dim: oklch(0.62 0.006 260);
+  --text-faint: oklch(0.5 0.006 260);
+
+  --border: oklch(0.24 0.006 260);
+  --border-strong: oklch(0.28 0.006 260);
+
+  --accent: oklch(0.75 0.14 165);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+
+  --color-surface: var(--bg-surface);
+  --color-nav: var(--bg-nav);
+  --color-terminal: var(--bg-terminal);
+
+  --color-text: var(--text);
+  --color-text-strong: var(--text-strong);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-text-dim: var(--text-dim);
+  --color-text-faint: var(--text-faint);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-accent: var(--accent);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
 }
