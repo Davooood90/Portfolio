@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-nav backdrop-blur">
-      <nav className="mx-auto flex items-center justify-between px-8 py-4">
+      <nav className="mx-auto flex items-center justify-between px-8 py-4 font-mono">
         <Link href="/" className="font-medium text-text-strong">
           David Liu
         </Link>
