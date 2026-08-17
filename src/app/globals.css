@@ -16,7 +16,7 @@
   --border: oklch(0.86 0.006 260);
   --border-strong: oklch(0.8 0.006 260);
 
-  --accent: oklch(0.65 0.14 165);
+  --accent: oklch(0.6 0.14 165);
 }
 
 .dark {
