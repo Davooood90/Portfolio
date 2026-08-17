@@ -1,42 +1,55 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 
 const links = [
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/work", label: "Work" },
+  { href: "#about", label: "about/" },
+  { href: "#work", label: "work/" },
+  { href: "#projects", label: "projects/" },
+  { href: "#education", label: "education/" },
+  { href: "#contact", label: "contact/" },
 ];
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-nav backdrop-blur">
-      <nav className="mx-auto flex items-center justify-between px-8 py-4 font-mono">
-        <Link href="/" className="font-medium text-text-strong">
-          David Liu
+    <header className="sticky top-0 z-50 border-b border-border-strong bg-nav backdrop-blur">
+      <nav className="flex flex-wrap items-center gap-7 px-8 py-4 font-mono">
+        <Link href="/" className="text-sm whitespace-nowrap">
+          <span className="text-accent">david@portfolio</span>
+          <span className="text-text-dim">:~$</span>{" "}
+          <span className="text-text">ls</span>
         </Link>
-        <ul className="flex gap-6 text-sm">
-          {links.map(({ href, label }) => {
-            const isActive = pathname === href;
-            return (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className={
-                    isActive
-                      ? "text-text-strong"
-                      : "text-text-muted transition-colors hover:text-text-strong"
-                  }
-                >
-                  {label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+
+        <div className="flex flex-wrap gap-[22px] text-[13.5px] text-text-muted">
+          {links.map(({ href, label }) => (
+            <a
+              key={href}
+              href={href}
+              className="transition-colors hover:text-text-strong"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+
+        <div className="ml-auto flex items-center gap-3">
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="whitespace-nowrap rounded border border-border-strong px-3 py-2 text-[13px] text-text-muted"
+          >
+            {mounted ? theme : "theme"}
+          </button>
+          <button className="whitespace-nowrap rounded border border-accent px-4 py-2 text-[13px] text-accent">
+            terminal
+          </button>
+        </div>
       </nav>
     </header>
   );
