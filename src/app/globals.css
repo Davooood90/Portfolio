@@ -60,6 +60,14 @@
 
   --font-sans: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);
+
+  --animate-blink: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 body {
