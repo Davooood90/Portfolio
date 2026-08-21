@@ -11,7 +11,7 @@ export default function AboutSection() {
         David Liu
       </h1>
       <p className="text-accent text-[clamp(16px,2vw,20px)] mt-3.5">
-        Full-stack developer, exploring AI, building & more.
+        CS @ UBC | Full-stack developer, exploring AI, building memri & more.
         <span className="animate-blink">_</span>
       </p>
       <div className="flex gap-4 mt-9 flex-wrap">
