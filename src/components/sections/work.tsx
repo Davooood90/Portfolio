@@ -1,13 +1,82 @@
+type Job = {
+  period: string;
+  title: string;
+  company: string;
+  location: string;
+  summary: string;
+  href: string;
+};
+
+const jobs: Job[] = [
+  {
+    period: "Sep. 2026",
+    title: "Full Stack Developer Intern",
+    company: "BC Liquor Distribution Branch",
+    location: "Burnaby, BC",
+    summary:
+      "Incoming for an 8-month co-op term building full-stack web applications for BC Public Service IT infrastructure.",
+    href: "#",
+  },
+  {
+    period: "Jan - Apr 2026",
+    title: "Software Development Engineer Intern",
+    company: "CaterDash",
+    location: "Vancouver, BC",
+    summary:
+      "Built the core catering marketplace end to end — 5k+ active users and $100k+ in sales since launch.",
+    href: "#",
+  },
+  {
+    period: "Aug 2025 – Apr 2026",
+    title: "Undergraduate Teaching Assistant",
+    company: "University of British Columbia",
+    location: "Vancouver, BC",
+    summary:
+      "Ran weekly digital logic labs for 50 students and supported exams for 400+.",
+    href: "#",
+  },
+];
+
 export default function WorkSection() {
   return (
     <section
       id="work"
-      className="flex min-h-screen flex-col items-center justify-center gap-4 text-center"
+      className="flex flex-col justify-center px-8 py-20 font-mono"
     >
-      <h2 className="text-3xl font-semibold text-text-strong">Work</h2>
-      <p className="max-w-prose text-text-body">
-        This section is under construction.
-      </p>
+      <div className="text-text-dim text-sm mb-5 ">~/work $ ls -la</div>
+      <h1 className="font-mono text-3xl font-semibold mb-10">
+        Work Experience
+      </h1>
+
+      <div className="flex flex-col">
+        {jobs.map((job) => (
+          <a
+            key={`${job.company}-${job.period}`}
+            href={job.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="-mx-4 grid grid-cols-1 items-center gap-2 rounded-md border-t border-border px-4 py-6.5 transition-colors hover:bg-surface sm:grid-cols-[180px_1fr_auto] sm:gap-6"
+          >
+            <div className="font-mono text-[13px] text-text-dim whitespace-nowrap">
+              {job.period}
+            </div>
+            <div>
+              <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-2.5">
+                <h3 className="text-lg font-semibold">{job.title}</h3>
+                <span className="font-mono text-[13px] text-accent">
+                  {job.company}
+                </span>
+              </div>
+              <p className="mt-2 text-[13px] leading-[1.6] text-text-body text-pretty">
+                {job.summary}
+              </p>
+            </div>
+            <span className="justify-self-end font-mono text-[14px] text-text-faint sm:justify-self-auto">
+              &gt;
+            </span>
+          </a>
+        ))}
+      </div>
     </section>
   );
 }

@@ -4,7 +4,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="flex flex-col justify-center my-18 font-mono"
+      className="flex flex-col justify-center px-8 py-20 font-mono"
     >
       <div className="text-text-dim text-sm mb-5 ">~/about $ whoami</div>
       <h1 className="font-semibold text-text text-[clamp(36px,6vw,64px)] leading-[1.1] tracking-[-0.01em]">
