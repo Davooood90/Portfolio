@@ -31,6 +31,8 @@ export default function Navbar() {
   const isHome = pathname === "/";
   const isDark = mounted ? theme === "dark" : true;
   const sections = pageSections[pathname] ?? [];
+  const depth = pathname.split("/").filter(Boolean).length;
+  const upLabel = "../".repeat(depth);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border-strong bg-nav backdrop-blur">
@@ -46,7 +48,7 @@ export default function Navbar() {
         <div className="flex flex-wrap gap-[22px] text-[13.5px] text-text-muted">
           {!isHome && (
             <Link href="/" className="transition-colors hover:text-text-strong">
-              ../
+              {upLabel}
             </Link>
           )}
           {sections.map(({ id, label }) => (
