@@ -1,9 +1,11 @@
+import Link from "next/link";
+
 type Project = {
   year: string;
   title: string;
   desc: string;
   tag: string;
-  href: string;
+  href?: string;
 };
 
 const projects: Project[] = [
@@ -12,21 +14,21 @@ const projects: Project[] = [
     title: "VoiceAgent",
     desc: "Real-time AI voice assistant with low-latency streaming audio.",
     tag: "Voice Control Agent",
-    href: "#",
+    href: "/projects/voiceagent",
   },
   {
     year: "2025",
-    title: "VoiceAgent",
+    title: "Mello",
     desc: "Real-time AI voice assistant with low-latency streaming audio.",
     tag: "Voice Control Agent",
-    href: "#",
+    href: "/projects/mello",
   },
   {
     year: "2024",
-    title: "VoiceAgent",
+    title: "Echo",
     desc: "Real-time AI voice assistant with low-latency streaming audio.",
     tag: "Voice Control Agent",
-    href: "#",
+    href: "/projects/echo",
   },
 ];
 
@@ -40,30 +42,50 @@ export default function ProjectsSection() {
       <h1 className="font-mono text-3xl font-semibold mb-10">Projects</h1>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
-          <a
-            key={`${project.title}-${project.year}`}
-            href={project.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex h-full flex-col gap-3 rounded-lg border border-border p-6 transition-colors hover:border-accent hover:bg-surface"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[13px] text-text-dim">
-                {project.year}
+        {projects.map((project) => {
+          const body = (
+            <>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[13px] text-text-dim">
+                  {project.year}
+                </span>
+              </div>
+              <h3 className="text-lg font-semibold text-text-strong underline underline-offset-4 transition-colors group-hover:text-accent">
+                {project.title}
+              </h3>
+              <p className="text-[13px] leading-[1.6] text-text-body text-pretty">
+                {project.desc}
+              </p>
+              <span className="mt-auto w-fit rounded-full border border-border-strong px-3 py-1 font-mono text-[11px] text-accent">
+                {project.tag}
               </span>
-            </div>
-            <h3 className="text-lg font-semibold text-text-strong underline underline-offset-4 transition-colors group-hover:text-accent">
-              {project.title}
-            </h3>
-            <p className="text-[13px] leading-[1.6] text-text-body text-pretty">
-              {project.desc}
-            </p>
-            <span className="mt-auto w-fit rounded-full border border-border-strong px-3 py-1 font-mono text-[11px] text-accent">
-              {project.tag}
-            </span>
-          </a>
-        ))}
+            </>
+          );
+
+          const className =
+            "group flex h-full flex-col gap-3 rounded-lg border border-border p-6" +
+            (project.href
+              ? " transition-colors hover:border-accent hover:bg-surface"
+              : "");
+
+          if (!project.href) {
+            return (
+              <div key={project.title} className={className}>
+                {body}
+              </div>
+            );
+          }
+
+          return (
+            <Link
+              key={project.title}
+              href={project.href}
+              className={className}
+            >
+              {body}
+            </Link>
+          );
+        })}
       </div>
     </section>
   );
