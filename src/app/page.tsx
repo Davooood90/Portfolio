@@ -1,7 +1,7 @@
-import AboutSection from "@/components/sections/about";
-import WorkSection from "@/components/sections/work";
-import ProjectsSection from "@/components/sections/projects";
-import ContactSection from "@/components/sections/contact";
+import AboutSection from "@/components/mainSections/about";
+import WorkSection from "@/components/mainSections/work";
+import ProjectsSection from "@/components/mainSections/projects";
+import ContactSection from "@/components/mainSections/contact";
 
 export default function Home() {
   return (
