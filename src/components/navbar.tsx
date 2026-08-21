@@ -31,8 +31,12 @@ export default function Navbar() {
   const isHome = pathname === "/";
   const isDark = mounted ? theme === "dark" : true;
   const sections = pageSections[pathname] ?? [];
-  const depth = pathname.split("/").filter(Boolean).length;
-  const upLabel = "../".repeat(depth);
+  const segments = pathname.split("/").filter(Boolean);
+  const homeSectionIds = new Set(pageSections["/"].map((s) => s.id));
+  const upHref =
+    segments.length > 1 && homeSectionIds.has(segments[0])
+      ? `/#${segments[0]}`
+      : "/";
 
   return (
     <header className="sticky top-0 z-50 border-b border-border-strong bg-nav backdrop-blur">
@@ -47,8 +51,11 @@ export default function Navbar() {
 
         <div className="flex flex-wrap gap-[22px] text-[13.5px] text-text-muted">
           {!isHome && (
-            <Link href="/" className="transition-colors hover:text-text-strong">
-              {upLabel}
+            <Link
+              href={upHref}
+              className="transition-colors hover:text-text-strong"
+            >
+              ../
             </Link>
           )}
           {sections.map(({ id, label }) => (
