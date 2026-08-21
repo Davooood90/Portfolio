@@ -4,7 +4,7 @@ export default function OverviewSection() {
   return (
     <section
       id="overview"
-      className="flex flex-col justify-center px-8 py-20 font-mono"
+      className="flex flex-col justify-center px-8 py-10 font-mono"
     >
       <div className="text-text-dim text-sm mb-5 ">~/about $ cat me.md</div>
       <div className="flex flex-col-reverse gap-10 md:flex-row md:items-stretch md:justify-between mb-8 ">

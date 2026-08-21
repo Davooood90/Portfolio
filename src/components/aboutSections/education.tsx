@@ -19,7 +19,7 @@ export default function EducationSection() {
   return (
     <section
       id="education"
-      className="flex flex-col justify-center px-8 py-20 font-mono"
+      className="flex flex-col justify-center px-8 py-10 font-mono"
     >
       <div className="text-text-dim text-sm mb-5 ">
         ~/about $ cat education.txt
