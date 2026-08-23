@@ -10,25 +10,39 @@ type Project = {
 
 const projects: Project[] = [
   {
-    year: "2026",
+    year: "May 2026 – Present",
+    title: "memri",
+    desc: "Cozy, scrapbook-inspired mobile app for sharing multi-media memories as interactive digital polaroids.",
+    tag: "Mobile App",
+    href: "/projects/memri",
+  },
+  {
+    year: "Mar. 2026",
     title: "VoiceAgent",
-    desc: "Real-time AI voice assistant with low-latency streaming audio.",
-    tag: "Voice Control Agent",
+    desc: "Real-time AI voice assistant leveraging WebSockets for low-latency streaming audio.",
+    tag: "Voice AI Agent",
     href: "/projects/voiceagent",
   },
   {
-    year: "2025",
-    title: "Mello",
-    desc: "Real-time AI voice assistant with low-latency streaming audio.",
-    tag: "Voice Control Agent",
-    href: "/projects/mello",
+    year: "Jul. 2025 – Jan. 2026",
+    title: "TeXume",
+    desc: "Containerized LaTeX compilation engine that renders resumes to PDF with near-instant live preview.",
+    tag: "LaTeX SaaS",
+    href: "/projects/texume",
   },
   {
-    year: "2024",
-    title: "Echo",
-    desc: "Real-time AI voice assistant with low-latency streaming audio.",
-    tag: "Voice Control Agent",
-    href: "/projects/echo",
+    year: "Sep. 2025 – Nov. 2025",
+    title: "Trailbase",
+    desc: "Layered REST API with a dynamic query builder for flexible, multi-criteria search.",
+    tag: "Backend API",
+    href: "/projects/trailbase",
+  },
+  {
+    year: "Feb. 2025 – Aug. 2025",
+    title: "BOLT UBC Website",
+    desc: "Public website for BOLT, a UBC student organization.",
+    tag: "Performance Engineering",
+    href: "/projects/bolt-ubc",
   },
 ];
 

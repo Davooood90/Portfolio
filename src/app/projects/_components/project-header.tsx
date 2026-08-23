@@ -3,6 +3,7 @@ type ProjectHeaderProps = {
   title: string;
   year: string;
   tag: string;
+  stack?: string[];
 };
 
 export default function ProjectHeader({
@@ -10,6 +11,7 @@ export default function ProjectHeader({
   title,
   year,
   tag,
+  stack,
 }: ProjectHeaderProps) {
   return (
     <>
@@ -22,9 +24,19 @@ export default function ProjectHeader({
         <span className="text-[13px] text-text-dim">{year}</span>
       </div>
 
-      <span className="mb-8 inline-block w-fit rounded-full border border-border-strong px-3 py-1 font-mono text-[11px] text-accent">
-        {tag}
-      </span>
+      <div className="mb-8 flex flex-wrap items-center gap-2">
+        <span className="inline-block w-fit rounded-full border border-border-strong px-3 py-1 font-mono text-[11px] text-accent">
+          {tag}
+        </span>
+        {stack?.map((tech) => (
+          <span
+            key={tech}
+            className="inline-block w-fit rounded-full border border-border px-3 py-1 font-mono text-[11px] text-text-dim"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
     </>
   );
 }
