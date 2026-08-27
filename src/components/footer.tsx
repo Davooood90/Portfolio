@@ -1,3 +1,7 @@
+import type { ReactElement } from "react";
+import { links } from "@/content/profile";
+import type { LinkId } from "@/content/types";
+
 function GithubIcon() {
   return (
     <svg
@@ -50,15 +54,24 @@ function MailIcon() {
   );
 }
 
-const socials = [
-  { label: "GitHub", href: "https://github.com/Davooood90", Icon: GithubIcon },
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com/in/davidliu906",
-    Icon: LinkedinIcon,
-  },
-  { label: "Email", href: "mailto:david.liu906@gmail.com", Icon: MailIcon },
-];
+const ICON: Record<LinkId, () => ReactElement> = {
+  github: GithubIcon,
+  linkedin: LinkedinIcon,
+  email: MailIcon,
+};
+
+// Footer display order (the contact section renders links in their source order).
+const FOOTER_ORDER: LinkId[] = ["github", "linkedin", "email"];
+
+const socials = FOOTER_ORDER.map((id) => {
+  const link = links.find((l) => l.id === id)!;
+  return {
+    label: link.label,
+    href: link.href,
+    external: link.external,
+    Icon: ICON[id],
+  };
+});
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -70,21 +83,18 @@ export default function Footer() {
           David Liu. Built with care, {year}.
         </p>
         <div className="flex items-center gap-4">
-          {socials.map(({ label, href, Icon }) => {
-            const isExternal = href.startsWith("http");
-            return (
-              <a
-                key={label}
-                href={href}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
-                aria-label={label}
-                className="text-text-faint transition-colors hover:text-accent"
-              >
-                <Icon />
-              </a>
-            );
-          })}
+          {socials.map(({ label, href, external, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              aria-label={label}
+              className="text-text-faint transition-colors hover:text-accent"
+            >
+              <Icon />
+            </a>
+          ))}
         </div>
       </div>
     </footer>

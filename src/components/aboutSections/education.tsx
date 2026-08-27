@@ -1,19 +1,4 @@
-type Education = {
-  school: string;
-  degree: string;
-  period: string;
-  coursework: string;
-};
-
-const education: Education[] = [
-  {
-    school: "University of British Columbia",
-    degree: "B.Sc. Computer Science, Co-op — Dean's Scholar, 4.33/4.33 GPA",
-    period: "Expected May 2028",
-    coursework:
-      "Coursework I've gotten the most out of: Algorithm Design & Analysis, Software Engineering, Relational Databases, Computer Systems, Computer Networking.",
-  },
-];
+import { education } from "@/content/profile";
 
 export default function EducationSection() {
   return (

@@ -1,34 +1,22 @@
 import ProjectHeader from "../_components/project-header";
-import ComingSoonTerminal, {
-  type TerminalStep,
-} from "@/components/comingSoonTerminal";
+import ComingSoonTerminal from "@/components/comingSoonTerminal";
+import { getProject } from "@/content/projects";
 
-const TEXUME_SCRIPT: TerminalStep[] = [
-  { kind: "type", text: "docker run texume-engine" },
-  { kind: "print", text: "compiling .tex... done" },
-  { kind: "type", text: "cat ./texume/status.log" },
-  { kind: "progress", label: "rendering pdf preview" },
-  { kind: "print", text: "status: COMING SOON", accent: true },
-  { kind: "pause" },
-];
+const project = getProject("texume");
 
 export default function TeXumePage() {
   return (
     <main className="mx-auto max-w-5xl px-8 py-20 font-mono">
-      <ProjectHeader
-        slug="texume"
-        title="TeXume"
-        year="Jul. 2025 – Jan. 2026"
-        tag="LaTeX SaaS"
-        stack={["Next.js", "TypeScript", "Supabase", "Docker", "LaTeX"]}
-      />
+      <ProjectHeader project={project} />
 
       <p className="text-[15px] leading-[1.6] text-text-body text-pretty mb-8">
-        A containerized LaTeX compilation engine that generates PDFs from
-        dynamic user data.
+        {project.summary}
       </p>
 
-      <ComingSoonTerminal title="texume — status" script={TEXUME_SCRIPT} />
+      <ComingSoonTerminal
+        title={project.comingSoon.title}
+        script={project.comingSoon.script}
+      />
     </main>
   );
 }

@@ -1,50 +1,5 @@
 import Link from "next/link";
-
-type Project = {
-  year: string;
-  title: string;
-  desc: string;
-  tag: string;
-  href?: string;
-};
-
-const projects: Project[] = [
-  {
-    year: "May 2026",
-    title: "memri",
-    desc: "Cozy, scrapbook-inspired mobile app for sharing multi-media memories as interactive digital polaroids.",
-    tag: "Mobile App",
-    href: "/projects/memri",
-  },
-  {
-    year: "Mar. 2026",
-    title: "VoiceAgent",
-    desc: "Real-time AI voice assistant leveraging WebSockets for low-latency streaming audio.",
-    tag: "Voice AI Agent",
-    href: "/projects/voiceagent",
-  },
-  {
-    year: "Jan. 2026",
-    title: "rambl",
-    desc: "Judgment-free AI companion for talking through your feelings by voice or text.",
-    tag: "Mental Wellness AI",
-    href: "/projects/rambl",
-  },
-  {
-    year: "Nov. 2025",
-    title: "Mello",
-    desc: "Team energy tracker that turns 2-second daily check-ins into a real-time dashboard, helping managers catch burnout early.",
-    tag: "Team Wellness SaaS",
-    href: "/projects/mello",
-  },
-  {
-    year: "Jul. 2025",
-    title: "TeXume",
-    desc: "Containerized LaTeX compilation engine that renders resumes to PDF with near-instant live preview.",
-    tag: "LaTeX SaaS",
-    href: "/projects/texume",
-  },
-];
+import { projects } from "@/content/projects";
 
 export default function ProjectsSection() {
   return (
@@ -68,7 +23,7 @@ export default function ProjectsSection() {
                 {project.title}
               </h3>
               <p className="text-[13px] leading-[1.6] text-text-body text-pretty">
-                {project.desc}
+                {project.blurb}
               </p>
               <span className="mt-auto w-fit rounded-full border border-border-strong px-3 py-1 font-mono text-[11px] text-accent">
                 {project.tag}
@@ -78,11 +33,11 @@ export default function ProjectsSection() {
 
           const className =
             "group flex h-full flex-col gap-3 rounded-lg border border-border p-6" +
-            (project.href
+            (project.route
               ? " transition-colors hover:border-accent hover:bg-surface"
               : "");
 
-          if (!project.href) {
+          if (!project.route) {
             return (
               <div key={project.title} className={className}>
                 {body}
@@ -91,7 +46,7 @@ export default function ProjectsSection() {
           }
 
           return (
-            <Link key={project.title} href={project.href} className={className}>
+            <Link key={project.title} href={project.route} className={className}>
               {body}
             </Link>
           );

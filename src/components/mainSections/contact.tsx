@@ -1,20 +1,4 @@
-const contacts = [
-  {
-    href: "mailto:david.liu906@gmail.com",
-    action: "mail",
-    value: "david.liu906@gmail.com",
-  },
-  {
-    href: "https://linkedin.com/in/davidliu906",
-    action: "open",
-    value: "linkedin.com/in/davidliu906",
-  },
-  {
-    href: "https://github.com/Davooood90",
-    action: "open",
-    value: "github.com/Davooood90",
-  },
-];
+import { links } from "@/content/profile";
 
 export default function ContactSection() {
   return (
@@ -30,21 +14,18 @@ export default function ContactSection() {
       </p>
 
       <div className="flex flex-col gap-3.5 text-[15px]">
-        {contacts.map((contact) => {
-          const isExternal = contact.href.startsWith("http");
-          return (
-            <a
-              key={contact.href}
-              href={contact.href}
-              target={isExternal ? "_blank" : undefined}
-              rel={isExternal ? "noopener noreferrer" : undefined}
-              className="text-text-body transition-colors hover:text-text-strong"
-            >
-              → {contact.action}{" "}
-              <span className="text-accent">{contact.value}</span>
-            </a>
-          );
-        })}
+        {links.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            className="text-text-body transition-colors hover:text-text-strong"
+          >
+            → {link.action}{" "}
+            <span className="text-accent">{link.value}</span>
+          </a>
+        ))}
       </div>
     </section>
   );

@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const hobbies = ["Badminton", "Piano", "Cooking", "Volleyball", "Hiking"];
+import { hobbies } from "@/content/profile";
 
 function toImagePath(hobby: string) {
   return `/hobbies/${hobby.toLowerCase()}.jpg`;
