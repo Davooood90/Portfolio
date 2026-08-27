@@ -10,7 +10,7 @@ type Project = {
 
 const projects: Project[] = [
   {
-    year: "May 2026 – Present",
+    year: "May 2026",
     title: "memri",
     desc: "Cozy, scrapbook-inspired mobile app for sharing multi-media memories as interactive digital polaroids.",
     tag: "Mobile App",
@@ -24,25 +24,25 @@ const projects: Project[] = [
     href: "/projects/voiceagent",
   },
   {
-    year: "Jul. 2025 – Jan. 2026",
+    year: "Jan. 2026",
+    title: "rambl",
+    desc: "Judgment-free AI companion for talking through your feelings by voice or text.",
+    tag: "Mental Wellness AI",
+    href: "/projects/rambl",
+  },
+  {
+    year: "Nov. 2025",
+    title: "Mello",
+    desc: "Team energy tracker that turns 2-second daily check-ins into a real-time dashboard, helping managers catch burnout early.",
+    tag: "Team Wellness SaaS",
+    href: "/projects/mello",
+  },
+  {
+    year: "Jul. 2025",
     title: "TeXume",
     desc: "Containerized LaTeX compilation engine that renders resumes to PDF with near-instant live preview.",
     tag: "LaTeX SaaS",
     href: "/projects/texume",
-  },
-  {
-    year: "Sep. 2025 – Nov. 2025",
-    title: "Trailbase",
-    desc: "Layered REST API with a dynamic query builder for flexible, multi-criteria search.",
-    tag: "Backend API",
-    href: "/projects/trailbase",
-  },
-  {
-    year: "Feb. 2025 – Aug. 2025",
-    title: "BOLT UBC Website",
-    desc: "Public website for BOLT, a UBC student organization.",
-    tag: "Performance Engineering",
-    href: "/projects/bolt-ubc",
   },
 ];
 
@@ -91,11 +91,7 @@ export default function ProjectsSection() {
           }
 
           return (
-            <Link
-              key={project.title}
-              href={project.href}
-              className={className}
-            >
+            <Link key={project.title} href={project.href} className={className}>
               {body}
             </Link>
           );
