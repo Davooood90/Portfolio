@@ -58,6 +58,5 @@ export interface Profile {
   aboutHeading: string;
   bio: string;
   photo: string;
-  whoami: string;
   location: string;
 }

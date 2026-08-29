@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
+import { useTerminal } from "@/components/terminal/terminal-provider";
 
 const pageSections: Record<string, { id: string; label: string }[]> = {
   "/": [
@@ -23,6 +24,7 @@ const pageSections: Record<string, { id: string; label: string }[]> = {
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const { isOpen: terminalOpen, toggle: toggleTerminal } = useTerminal();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
@@ -104,7 +106,13 @@ export default function Navbar() {
               </svg>
             )}
           </button>
-          <button className="whitespace-nowrap rounded border border-accent px-4 py-2 text-[13px] text-accent">
+          <button
+            type="button"
+            onClick={toggleTerminal}
+            aria-haspopup="dialog"
+            aria-expanded={terminalOpen}
+            className="whitespace-nowrap rounded border border-accent px-4 py-2 text-[13px] text-accent transition-colors hover:bg-accent hover:text-background"
+          >
             terminal.exe
           </button>
         </div>

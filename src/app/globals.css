@@ -17,6 +17,7 @@
   --border-strong: oklch(0.8 0.006 260);
 
   --accent: oklch(0.6 0.14 165);
+  --danger: oklch(0.55 0.19 25);
 }
 
 .dark {
@@ -36,6 +37,7 @@
   --border-strong: oklch(0.28 0.006 260);
 
   --accent: oklch(0.75 0.14 165);
+  --danger: oklch(0.72 0.17 25);
 }
 
 @theme inline {
@@ -57,6 +59,7 @@
   --color-border-strong: var(--border-strong);
 
   --color-accent: var(--accent);
+  --color-danger: var(--danger);
 
   --font-sans: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);

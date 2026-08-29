@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { TerminalProvider } from "@/components/terminal/terminal-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
@@ -57,9 +58,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
-          <Footer />
+          <TerminalProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </TerminalProvider>
         </ThemeProvider>
       </body>
     </html>
