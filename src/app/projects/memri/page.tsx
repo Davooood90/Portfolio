@@ -6,7 +6,7 @@ const project = getProject("memri");
 
 export default function MemriPage() {
   return (
-    <main className="mx-auto max-w-5xl px-8 py-20 font-mono">
+    <main className="mx-auto max-w-5xl px-5 py-12 font-mono sm:px-8 sm:py-20">
       <ProjectHeader project={project} />
 
       <p className="text-[15px] leading-[1.6] text-text-body text-pretty mb-8">

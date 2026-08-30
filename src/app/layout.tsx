@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TerminalProvider } from "@/components/terminal/terminal-provider";
@@ -42,13 +42,25 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  colorScheme: "dark light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f8f9" },
+    { media: "(prefers-color-scheme: dark)", color: "#1c1c1e" },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth scroll-pt-20" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="scroll-smooth scroll-pt-16 sm:scroll-pt-20"
+      suppressHydrationWarning
+    >
       <body
         className={`${plexSans.variable} ${plexMono.variable} antialiased`}
       >

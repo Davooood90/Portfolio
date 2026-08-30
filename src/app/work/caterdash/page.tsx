@@ -6,7 +6,7 @@ const job = getJob("caterdash");
 
 export default function CaterDashPage() {
   return (
-    <main className="mx-auto max-w-5xl px-8 py-20 font-mono">
+    <main className="mx-auto max-w-5xl px-5 py-12 font-mono sm:px-8 sm:py-20">
       <WorkHeader job={job} />
 
       {job.summary && (

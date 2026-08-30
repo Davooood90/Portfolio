@@ -6,16 +6,18 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="flex flex-col justify-center px-8 py-20 font-mono"
+      className="flex flex-col justify-center py-12 font-mono sm:px-8 sm:py-20"
     >
-      <div className="text-text-dim text-sm mb-5 ">~/about $ whoami</div>
-      <h1 className="font-semibold text-text text-[clamp(36px,6vw,64px)] leading-[1.1] tracking-[-0.01em]">
+      <div className="text-text-dim text-[13px] mb-4 sm:text-sm sm:mb-5">
+        ~/about $ whoami
+      </div>
+      <h1 className="font-semibold text-text text-3xl leading-[1.15] tracking-[-0.01em] text-balance sm:text-[clamp(40px,6vw,64px)] sm:leading-[1.1]">
         {profile.name}
       </h1>
       <p className="text-accent text-[clamp(16px,2vw,20px)] mt-3.5">
         <Typewriter text={profile.headline} />
       </p>
-      <div className="flex gap-4 mt-9 flex-wrap">
+      <div className="flex flex-wrap gap-3 mt-7 sm:gap-4 sm:mt-9">
         <a
           href={profile.resumePath}
           target="_blank"

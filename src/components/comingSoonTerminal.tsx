@@ -23,7 +23,7 @@ const DEFAULT_SCRIPT: TerminalStep[] = [
 ];
 
 const TYPE_SPEED = 32;
-const BAR_WIDTH = 24;
+const BAR_WIDTH = 18;
 const DEFAULT_PROGRESS_DURATION = 2200;
 const DEFAULT_PAUSE_DURATION = 2600;
 
@@ -116,9 +116,9 @@ export default function ComingSoonTerminal({
         <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
         <span className="ml-3 text-xs text-text-faint font-mono">{title}</span>
       </div>
-      <div className="p-5 font-mono text-[13px] leading-[1.7] min-h-[190px]">
+      <div className="overflow-x-auto p-4 font-mono text-[12.5px] leading-[1.7] min-h-[190px] sm:p-5 sm:text-[13px]">
         {lines.map((line, i) => (
-          <div key={i}>
+          <div key={i} className="whitespace-pre-wrap break-words">
             {line.kind === "prompt" && (
               <span className="text-text-body">
                 <span className="text-accent">$</span> {line.text}
@@ -142,7 +142,7 @@ export default function ComingSoonTerminal({
         ))}
 
         {step.kind === "type" && (
-          <div className="text-text-body">
+          <div className="whitespace-pre-wrap break-words text-text-body">
             <span className="text-accent">$</span>{" "}
             {step.text.slice(0, charIndex)}
             <span className="animate-blink">_</span>
@@ -150,7 +150,7 @@ export default function ComingSoonTerminal({
         )}
 
         {step.kind === "progress" && (
-          <div className="text-text-dim">
+          <div className="whitespace-pre-wrap break-words text-text-dim">
             [
             {"#"
               .repeat(Math.floor((progress / 100) * BAR_WIDTH))
@@ -160,7 +160,7 @@ export default function ComingSoonTerminal({
         )}
 
         {step.kind === "pause" && (
-          <div className="text-text-body">
+          <div className="whitespace-pre-wrap break-words text-text-body">
             <span className="text-accent">$</span>{" "}
             <span className="animate-blink">_</span>
           </div>

@@ -7,8 +7,7 @@ export const profile: Profile = {
   resumePath: "/resume.pdf",
   aboutHeading: "About Me",
   bio: `I'm a Computer Science student at UBC who likes building things that people actually use. Most of my work sits at the seam between a clean interface and the messy systems behind it — streaming audio pipelines, containerized compilers, marketplace backends. I care about shipping. My favourite projects are the ones that went from "wouldn't it be cool if" to something with real users in a matter of weeks, and I'd rather learn a tool in production than read about it for a month first.`,
-  photo:
-    "https://www.devbydavidliu.com/_next/image?url=%2Fperson.png&w=2048&q=75",
+  photo: "https://www.devbydavidliu.com/person.png",
   location: "Vancouver, BC",
 };
 

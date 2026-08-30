@@ -5,10 +5,12 @@ export default function WorkSection() {
   return (
     <section
       id="work"
-      className="flex flex-col justify-center px-8 py-20 font-mono"
+      className="flex flex-col justify-center py-12 font-mono sm:px-8 sm:py-20"
     >
-      <div className="text-text-dim text-sm mb-5 ">~/work $ ls -la</div>
-      <h1 className="font-mono text-3xl font-semibold mb-10">
+      <div className="text-text-dim text-[13px] mb-4 sm:text-sm sm:mb-5">
+        ~/work $ ls -la
+      </div>
+      <h1 className="font-mono text-2xl font-semibold mb-6 sm:text-3xl sm:mb-10">
         Work Experience
       </h1>
 
@@ -21,7 +23,9 @@ export default function WorkSection() {
               </div>
               <div>
                 <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-2.5">
-                  <h3 className="text-lg font-semibold">{job.role}</h3>
+                  <h3 className="text-base font-semibold text-balance sm:text-lg">
+                    {job.role}
+                  </h3>
                   <span className="font-mono text-[13px] text-accent">
                     {job.company}
                   </span>
@@ -31,7 +35,7 @@ export default function WorkSection() {
                 </p>
               </div>
               {job.route && (
-                <span className="justify-self-end font-mono text-[14px] text-text-faint sm:justify-self-auto">
+                <span className="hidden justify-self-end font-mono text-[14px] text-text-faint sm:inline sm:justify-self-auto">
                   &gt;
                 </span>
               )}
@@ -39,7 +43,7 @@ export default function WorkSection() {
           );
 
           const className =
-            "-mx-4 grid grid-cols-1 items-center gap-2 rounded-md border-t border-border px-4 py-6.5 sm:grid-cols-[180px_1fr_auto] sm:gap-6" +
+            "grid grid-cols-1 items-center gap-2 rounded-md border-t border-border py-6 sm:-mx-4 sm:grid-cols-[180px_1fr_auto] sm:gap-6 sm:px-4 sm:py-6.5" +
             (job.route ? " transition-colors hover:bg-surface" : "");
 
           if (!job.route) {

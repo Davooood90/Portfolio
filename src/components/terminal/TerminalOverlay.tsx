@@ -30,6 +30,10 @@ export default function TerminalOverlay() {
   const [cwd, setCwd] = useState("/");
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
+  const [viewport, setViewport] = useState<{
+    height: number;
+    offsetTop: number;
+  } | null>(null);
 
   const histCursor = useRef<number | null>(null);
   const draft = useRef("");
@@ -54,10 +58,27 @@ export default function TerminalOverlay() {
     };
   }, [isOpen]);
 
+  // Track the visual viewport so the input stays above the on-screen keyboard.
+  useEffect(() => {
+    if (!isOpen) return;
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const update = () =>
+      setViewport({ height: vv.height, offsetTop: vv.offsetTop });
+    update();
+    vv.addEventListener("resize", update);
+    vv.addEventListener("scroll", update);
+    return () => {
+      vv.removeEventListener("resize", update);
+      vv.removeEventListener("scroll", update);
+      setViewport(null);
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     const el = scrollRef.current;
     if (el) el.scrollTop = el.scrollHeight;
-  }, [lines, isOpen]);
+  }, [lines, isOpen, viewport]);
 
   const prompt = `${displayCwd(cwd)} $ `;
 
@@ -191,7 +212,15 @@ export default function TerminalOverlay() {
   if (!mounted || !isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[60] flex items-center justify-center">
+    <div
+      className="fixed left-0 top-0 z-[60] flex w-full items-center justify-center"
+      style={{
+        height: viewport ? viewport.height : "100dvh",
+        transform: viewport
+          ? `translateY(${viewport.offsetTop}px)`
+          : undefined,
+      }}
+    >
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm motion-reduce:backdrop-blur-none"
         aria-hidden="true"
@@ -212,14 +241,14 @@ export default function TerminalOverlay() {
             inputRef.current?.focus();
           }
         }}
-        className="relative flex h-[85dvh] w-[92vw] max-w-[900px] flex-col overflow-hidden rounded-lg border border-border-strong bg-surface shadow-lg sm:h-[70vh] sm:w-[70vw]"
+        className="relative flex h-full w-full flex-col overflow-hidden border border-border-strong bg-surface shadow-lg sm:h-[70vh] sm:w-[70vw] sm:max-w-[900px] sm:rounded-lg"
       >
         <div className="flex items-center gap-1.5 border-b border-border-strong px-4 py-3">
           <button
             type="button"
             onClick={close}
             aria-label="Close terminal"
-            className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"
+            className="relative h-2.5 w-2.5 rounded-full bg-[#ff5f56] before:absolute before:-inset-3 before:content-['']"
           />
           <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
@@ -230,12 +259,14 @@ export default function TerminalOverlay() {
 
         <div
           ref={scrollRef}
-          className="flex-1 overflow-y-auto p-5 font-mono text-[13px] leading-[1.7]"
+          className="flex-1 overflow-y-auto overscroll-contain p-4 font-mono text-[16px] leading-[1.6] sm:p-5 sm:text-[13px] sm:leading-[1.7]"
           aria-live="polite"
         >
           <TerminalScrollback lines={lines} />
           <div className="flex">
-            <span className="shrink-0 whitespace-pre text-accent">{prompt}</span>
+            <span className="shrink-0 whitespace-pre text-accent text-[16px] sm:text-[13px]">
+              {prompt}
+            </span>
             <input
               ref={inputRef}
               value={input}
@@ -246,7 +277,7 @@ export default function TerminalOverlay() {
               autoCapitalize="off"
               autoCorrect="off"
               aria-label="Terminal input"
-              className="min-w-0 flex-1 bg-transparent font-mono text-text-body caret-accent outline-none"
+              className="min-w-0 flex-1 bg-transparent font-mono text-[16px] text-text-body caret-accent outline-none sm:text-[13px]"
             />
           </div>
         </div>

@@ -77,12 +77,12 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border px-8 py-6 font-mono">
+    <footer className="border-t border-border px-5 py-6 font-mono sm:px-8">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 sm:flex-row sm:justify-between">
         <p className="text-[12.5px] text-text-faint">
           David Liu. Built with care, {year}.
         </p>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1 sm:gap-2">
           {socials.map(({ label, href, external, Icon }) => (
             <a
               key={label}
@@ -90,7 +90,7 @@ export default function Footer() {
               target={external ? "_blank" : undefined}
               rel={external ? "noopener noreferrer" : undefined}
               aria-label={label}
-              className="text-text-faint transition-colors hover:text-accent"
+              className="flex h-11 w-11 items-center justify-center text-text-faint transition-colors hover:text-accent"
             >
               <Icon />
             </a>

@@ -5,7 +5,7 @@ import ContactSection from "@/components/mainSections/contact";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-5xl px-8">
+    <main className="mx-auto max-w-5xl px-5 sm:px-8">
       <AboutSection />
       <WorkSection />
       <ProjectsSection />

@@ -11,9 +11,9 @@ import type {
   TermLine,
 } from "./types";
 
-const RULE = "-".repeat(44);
+const RULE = "-".repeat(32);
 
-function wrap(text: string, width = 74): string[] {
+function wrap(text: string, width = 56): string[] {
   const words = text.split(/\s+/).filter(Boolean);
   const lines: string[] = [];
   let line = "";
