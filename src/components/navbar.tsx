@@ -22,10 +22,89 @@ const pageSections: Record<string, { id: string; label: string }[]> = {
   "/projects": [],
 };
 
-const THEME_BTN_DESKTOP =
-  "flex items-center justify-center rounded border border-border-strong p-2.5 text-text-muted transition-colors hover:border-border hover:text-text-strong";
-const THEME_BTN_MOBILE =
-  "flex h-11 w-11 items-center justify-center rounded border border-border-strong text-text-muted transition-colors hover:border-border hover:text-text-strong";
+const THEME_BTN =
+  "flex shrink-0 items-center justify-center rounded border border-border-strong p-2.5 text-text-muted transition-colors hover:border-border hover:text-text-strong";
+
+const TERMINAL_BTN =
+  "shrink-0 whitespace-nowrap rounded border border-accent px-4 py-2 text-[13px] text-accent transition-colors hover:bg-accent hover:text-background";
+
+const NAV_LINK =
+  "shrink-0 text-[13px] text-text-muted transition-colors hover:text-text-strong sm:text-[13.5px]";
+
+// Executables (theme.sh, terminal.exe) — green, the way `ls --color` flags them.
+const NAV_EXEC =
+  "shrink-0 text-[13px] text-accent transition-colors hover:brightness-110 sm:text-[13.5px]";
+
+// Fade whichever end of a horizontal scroll strip still has hidden content.
+// `active` gates the listeners (the mobile dropdown row only exists while open);
+// `resetKey` forces a re-measure when the link set changes without a resize.
+function useEdgeFade(active: boolean, resetKey: string) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ start: false, end: false });
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !active) {
+      setEdges((p) => (p.start || p.end ? { start: false, end: false } : p));
+      return;
+    }
+    const update = () => {
+      const start = el.scrollLeft > 2;
+      const end =
+        Math.ceil(el.scrollLeft + el.clientWidth) < el.scrollWidth - 2;
+      setEdges((p) =>
+        p.start === start && p.end === end ? p : { start, end },
+      );
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      observer.disconnect();
+    };
+  }, [active, resetKey]);
+
+  const mask =
+    edges.start || edges.end
+      ? `linear-gradient(to right, transparent, #000 ${
+          edges.start ? "1.75rem" : "0px"
+        }, #000 calc(100% - ${edges.end ? "1.75rem" : "0px"}), transparent)`
+      : undefined;
+
+  return {
+    ref,
+    style: mask ? { maskImage: mask, WebkitMaskImage: mask } : undefined,
+  };
+}
+
+function NavLinks({
+  isHome,
+  upHref,
+  sections,
+  onNavigate,
+}: {
+  isHome: boolean;
+  upHref: string;
+  sections: { id: string; label: string }[];
+  onNavigate?: () => void;
+}) {
+  return (
+    <>
+      {!isHome && (
+        <Link href={upHref} onClick={onNavigate} className={NAV_LINK}>
+          ../
+        </Link>
+      )}
+      {sections.map(({ id, label }) => (
+        <a key={id} href={`#${id}`} onClick={onNavigate} className={NAV_LINK}>
+          {label}
+        </a>
+      ))}
+    </>
+  );
+}
 
 function ThemeToggle({
   isDark,
@@ -79,7 +158,8 @@ export default function Navbar() {
   const { isOpen: terminalOpen, toggle: toggleTerminal } = useTerminal();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const toggleRef = useRef<HTMLButtonElement>(null);
+  const [showHint, setShowHint] = useState(false);
+  const enterRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
   useEffect(() => setMounted(true), []);
@@ -94,186 +174,179 @@ export default function Navbar() {
       ? `/#${segments[0]}`
       : "/";
 
-  const closeMenu = () => setMenuOpen(false);
   const toggleTheme = () => setTheme(isDark ? "light" : "dark");
+  const closeMenu = () => setMenuOpen(false);
+
+  const deskFade = useEdgeFade(true, pathname);
+  const menuFade = useEdgeFade(menuOpen, pathname);
 
   useEffect(() => setMenuOpen(false), [pathname]);
 
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setMenuOpen(false);
-        toggleRef.current?.focus();
-      }
+      if (e.key === "Escape") setMenuOpen(false);
     };
+    const onScroll = () => setMenuOpen(false);
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [menuOpen]);
 
+  // On every mobile page load, briefly nudge the reader toward the menu button.
   useEffect(() => {
-    if (!menuOpen) return;
-    const onScroll = () => setMenuOpen(false);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [menuOpen]);
+    if (!window.matchMedia("(max-width: 639px)").matches) return;
+    const t = setTimeout(() => setShowHint(true), 900);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Auto-dismiss the hint after a while.
+  useEffect(() => {
+    if (!showHint) return;
+    const t = setTimeout(() => setShowHint(false), 10000);
+    return () => clearTimeout(t);
+  }, [showHint]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border-strong bg-nav backdrop-blur">
-      <nav className="px-4 py-3 font-mono sm:px-8 sm:py-4">
-        {/* Desktop — unchanged inline layout */}
-        <div className="hidden flex-wrap items-center gap-7 sm:flex">
-          <Link href="/" className="text-sm whitespace-nowrap">
-            <span className="text-accent">david@portfolio</span>
-            <span className="text-text-dim">
-              :~{pathname === "/" ? "" : pathname}$
-            </span>{" "}
-            <span className="text-text">ls</span>
-          </Link>
+      <nav className="relative z-50 flex items-center gap-6 px-4 py-3 font-mono sm:px-8 sm:py-4">
+        {/* Prompt — always visible. Blinking cursor is mobile-only + closed-only. */}
+        <Link
+          href="/"
+          aria-label="Home"
+          className="shrink-0 text-[13px] sm:text-sm"
+        >
+          <span className="text-accent">david@portfolio</span>
+          <span className="text-text-dim">
+            :~{isHome ? "" : pathname}$
+          </span>{" "}
+          <span className="text-text">
+            ls
+            {!menuOpen && <span className="animate-blink sm:hidden">_</span>}
+          </span>
+        </Link>
 
-          <div className="flex flex-wrap gap-[22px] text-[13.5px] text-text-muted">
-            {!isHome && (
-              <Link
-                href={upHref}
-                className="transition-colors hover:text-text-strong"
-              >
-                ../
-              </Link>
-            )}
-            {sections.map(({ id, label }) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                className="transition-colors hover:text-text-strong"
-              >
-                {label}
-              </a>
-            ))}
-          </div>
+        {/* Desktop — links + controls in one horizontal scroll strip. */}
+        <div
+          ref={deskFade.ref}
+          style={deskFade.style}
+          className="no-scrollbar hidden min-w-0 flex-1 items-center gap-6 overflow-x-auto whitespace-nowrap sm:-mr-8 sm:flex sm:pr-8"
+        >
+          <NavLinks isHome={isHome} upHref={upHref} sections={sections} />
 
-          <div className="ml-auto flex items-center gap-3">
+          <div className="ml-auto flex shrink-0 items-center gap-3">
             <ThemeToggle
               isDark={isDark}
               onToggle={toggleTheme}
-              className={THEME_BTN_DESKTOP}
+              className={THEME_BTN}
             />
             <button
               type="button"
               onClick={toggleTerminal}
               aria-haspopup="dialog"
               aria-expanded={terminalOpen}
-              className="whitespace-nowrap rounded border border-accent px-4 py-2 text-[13px] text-accent transition-colors hover:bg-accent hover:text-background"
+              className={TERMINAL_BTN}
             >
               terminal.exe
             </button>
           </div>
         </div>
 
-        {/* Mobile */}
-        <div className="flex items-center sm:hidden">
-          <Link
-            href="/"
-            aria-label="Home"
-            className="whitespace-nowrap text-[13px]"
+        {/* Mobile — press ↵ to "run ls". Kept mounted while open (invisible)
+            so the nav row height never changes. The first-load hint hangs
+            below the button (absolute) so it never shifts the row. */}
+        <div className="group relative -mr-2 ml-auto flex shrink-0 items-center sm:hidden">
+          <button
+            ref={enterRef}
+            type="button"
+            onClick={() => {
+              setMenuOpen((v) => !v);
+              setShowHint(false);
+            }}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav-menu"
+            className={`flex h-10 w-10 items-center justify-center text-lg leading-none text-text-muted transition-colors duration-300 group-hover:text-text-strong ${
+              menuOpen ? "invisible" : ""
+            }`}
           >
-            <span className="text-accent">david@portfolio</span>
-            <span className="text-text-dim"> $</span>
-          </Link>
+            ↵
+          </button>
 
-          <div className="ml-auto flex items-center gap-0.5">
-            <ThemeToggle
-              isDark={isDark}
-              onToggle={toggleTheme}
-              className={THEME_BTN_MOBILE}
+          <button
+            type="button"
+            tabIndex={showHint && !menuOpen ? 0 : -1}
+            aria-hidden={!(showHint && !menuOpen)}
+            onClick={() => {
+              setMenuOpen(true);
+              setShowHint(false);
+            }}
+            className={`absolute right-0 top-8 z-50 mt-2.5 flex items-center whitespace-nowrap rounded border border-border-strong bg-surface px-2 py-1 text-[11px] leading-none text-text-muted shadow-sm transition-all duration-300 group-hover:border-border group-hover:text-text-strong ${
+              showHint && !menuOpen
+                ? "translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-1 opacity-0"
+            }`}
+          >
+            <span
+              aria-hidden="true"
+              className="absolute -top-[5px] right-4 h-2 w-2 rotate-45 border-l border-t border-border-strong bg-surface transition-all duration-300 group-hover:border-border"
             />
-            <button
-              type="button"
-              onClick={() => {
-                setMenuOpen(false);
-                toggleTerminal();
-              }}
-              aria-haspopup="dialog"
-              aria-expanded={terminalOpen}
-              aria-label="Open terminal"
-              className="flex h-11 w-11 items-center justify-center rounded border border-accent text-accent transition-colors hover:bg-accent hover:text-background"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-              >
-                <polyline points="4 17 10 11 4 5" />
-                <line x1="12" y1="19" x2="20" y2="19" />
-              </svg>
-            </button>
-            <button
-              ref={toggleRef}
-              type="button"
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              className="flex h-11 w-11 items-center justify-center rounded border border-border-strong text-text-muted transition-colors hover:border-border hover:text-text-strong"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-5 w-5"
-              >
-                {menuOpen ? (
-                  <path d="M18 6 6 18M6 6l12 12" />
-                ) : (
-                  <path d="M3 12h18M3 6h18M3 18h18" />
-                )}
-              </svg>
-            </button>
-          </div>
+            click me
+          </button>
         </div>
       </nav>
 
+      {/* Mobile dropdown — the "ls" output. */}
       {menuOpen && (
         <>
+          {/* Tap-catcher + scrim. Must be `absolute top-full h-dvh`, not
+              `fixed inset-0`: the header's backdrop-blur is a containing block
+              for fixed descendants and would trap it inside the header bar. */}
           <div
-            className="fixed inset-0 z-40 bg-black/20 sm:hidden"
+            className="absolute inset-x-0 top-full z-40 h-dvh bg-black/20 sm:hidden"
             aria-hidden="true"
             onClick={closeMenu}
           />
           <div
-            id="mobile-menu"
-            className="absolute inset-x-0 top-full z-50 border-b border-border-strong bg-nav px-2 pb-2 pt-1 backdrop-blur sm:hidden"
+            id="mobile-nav-menu"
+            className="absolute inset-x-0 top-full z-40 border-b border-border-strong bg-nav backdrop-blur sm:hidden"
           >
-            <ul className="flex flex-col font-mono text-[15px] text-text-muted">
-              {!isHome && (
-                <li>
-                  <Link
-                    href={upHref}
-                    onClick={closeMenu}
-                    className="block rounded px-3 py-3 transition-colors hover:bg-surface hover:text-text-strong"
-                  >
-                    ../
-                  </Link>
-                </li>
-              )}
-              {sections.map(({ id, label }) => (
-                <li key={id}>
-                  <a
-                    href={`#${id}`}
-                    onClick={closeMenu}
-                    className="block rounded px-3 py-3 transition-colors hover:bg-surface hover:text-text-strong"
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div
+              ref={menuFade.ref}
+              style={menuFade.style}
+              className="no-scrollbar flex items-center gap-6 overflow-x-auto whitespace-nowrap px-4 py-3 font-mono"
+            >
+              <NavLinks
+                isHome={isHome}
+                upHref={upHref}
+                sections={sections}
+                onNavigate={closeMenu}
+              />
+              {/* Theme + terminal as plain "executables" in the same ls row. */}
+              <button
+                type="button"
+                aria-pressed={isDark}
+                onClick={toggleTheme}
+                className={NAV_EXEC}
+              >
+                theme.sh
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  closeMenu();
+                  toggleTerminal();
+                }}
+                aria-haspopup="dialog"
+                aria-expanded={terminalOpen}
+                className={NAV_EXEC}
+              >
+                terminal.exe
+              </button>
+            </div>
           </div>
         </>
       )}

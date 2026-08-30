@@ -2,7 +2,7 @@
 
 :root {
   --bg: oklch(0.98 0.003 260);
-  --bg-nav: oklch(0.98 0.003 260 / 0.9);
+  --bg-nav: oklch(0.98 0.003 260);
   --bg-surface: oklch(0.94 0.004 260);
   --bg-terminal: oklch(0.16 0.005 260);
 
@@ -90,4 +90,13 @@ h4,
 h5,
 h6 {
   font-family: var(--font-mono);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
