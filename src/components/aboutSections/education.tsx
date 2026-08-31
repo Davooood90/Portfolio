@@ -25,7 +25,12 @@ export default function EducationSection() {
             </div>
             <p className="mt-2 text-[15px] text-text-body">{edu.degree}</p>
             <p className="mt-4 text-sm leading-[1.7] text-text-muted text-pretty">
+              <b>Coursework: </b>
               {edu.coursework}
+            </p>
+            <p className="mt-4 text-sm leading-[1.7] text-text-muted text-pretty">
+              <b>Awards and Scholarships: </b>
+              {edu.awards}
             </p>
           </div>
         ))}

@@ -4,7 +4,7 @@ export const projects: Project[] = [
   {
     slug: "memri",
     title: "memri",
-    tag: "Mobile App",
+    tag: "Memory Sharing",
     year: "May 2026",
     yearLong: "May 2026 – Present",
     blurb:
@@ -59,7 +59,7 @@ export const projects: Project[] = [
   {
     slug: "rambl",
     title: "rambl",
-    tag: "Mental Wellness AI",
+    tag: "AI Companion",
     year: "Jan. 2026",
     yearLong: "Jan. 2026",
     blurb:
@@ -90,11 +90,11 @@ export const projects: Project[] = [
   {
     slug: "mello",
     title: "Mello",
-    tag: "Team Wellness SaaS",
+    tag: "Team Analytics",
     year: "Nov. 2025",
     yearLong: "Nov. 2025",
     blurb:
-      "Team energy tracker that turns 2-second daily check-ins into a real-time dashboard, helping managers catch burnout early.",
+      "Team energy tracker that turns daily check-ins into a real-time dashboard.",
     summary:
       "A team energy tracker that turns 2-second daily check-ins into a real-time dashboard, helping managers catch burnout early.",
     stack: ["Vue", "TypeScript", "iOS", "Android", "Node.js", "Slack API"],
@@ -114,11 +114,10 @@ export const projects: Project[] = [
   {
     slug: "texume",
     title: "TeXume",
-    tag: "LaTeX SaaS",
+    tag: "LaTeX Editor",
     year: "Jul. 2025",
     yearLong: "Jul. 2025 – Jan. 2026",
-    blurb:
-      "Containerized LaTeX compilation engine that renders resumes to PDF with near-instant live preview.",
+    blurb: "Containerized LaTeX compilation engine that assembles PDF resumes.",
     summary:
       "A containerized LaTeX compilation engine that generates PDFs from dynamic user data.",
     stack: ["Next.js", "TypeScript", "Supabase", "Docker", "LaTeX"],

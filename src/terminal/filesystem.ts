@@ -102,7 +102,12 @@ function renderReadme(): TermLine[] {
 }
 
 function renderMe(): TermLine[] {
-  return wrap(profile.bio).map((text) => ({ text }));
+  const lines: TermLine[] = [];
+  profile.bio.forEach((paragraph, i) => {
+    if (i > 0) lines.push({ text: "" });
+    wrap(paragraph).forEach((text) => lines.push({ text }));
+  });
+  return lines;
 }
 
 function renderEducation(): TermLine[] {

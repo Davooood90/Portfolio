@@ -16,9 +16,11 @@ export default function OverviewSection() {
             {profile.aboutHeading}
           </h1>
 
-          <p className="text-[15px] leading-[1.6] text-text-body text-pretty sm:text-[17px]">
-            {profile.bio}
-          </p>
+          <div className="flex flex-col gap-4 text-[15px] leading-[1.6] text-text-body text-pretty sm:text-[17px]">
+            {profile.bio.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
+          </div>
         </div>
 
         <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-md border border-border-strong bg-surface md:aspect-auto md:h-auto md:w-[320px]">

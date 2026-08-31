@@ -259,12 +259,12 @@ export default function TerminalOverlay() {
 
         <div
           ref={scrollRef}
-          className="flex-1 overflow-y-auto overscroll-contain p-4 font-mono text-[16px] leading-[1.6] sm:p-5 sm:text-[13px] sm:leading-[1.7]"
+          className="flex-1 overflow-y-auto overscroll-contain p-4 font-mono text-[14px] leading-[1.6] sm:p-5 sm:text-[13px] sm:leading-[1.7]"
           aria-live="polite"
         >
           <TerminalScrollback lines={lines} />
           <div className="flex">
-            <span className="shrink-0 whitespace-pre text-accent text-[16px] sm:text-[13px]">
+            <span className="shrink-0 whitespace-pre text-accent text-[14px] sm:text-[13px]">
               {prompt}
             </span>
             <input
@@ -277,7 +277,7 @@ export default function TerminalOverlay() {
               autoCapitalize="off"
               autoCorrect="off"
               aria-label="Terminal input"
-              className="min-w-0 flex-1 bg-transparent font-mono text-[16px] text-text-body caret-accent outline-none sm:text-[13px]"
+              className="min-w-0 flex-1 bg-transparent font-mono text-[14px] text-text-body caret-accent outline-none sm:text-[13px]"
             />
           </div>
         </div>

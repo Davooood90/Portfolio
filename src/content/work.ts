@@ -37,9 +37,9 @@ export const jobs: Job[] = [
     period: "Jan - Apr 2026",
     periodLong: "Jan – Apr 2026",
     blurb:
-      "Built the core catering marketplace end to end — 5k+ active users and $100k+ in sales since launch.",
+      "Founding engineer owning the core catering marketplace and internal tooling end to end, wearing whatever hat was needed.",
     summary:
-      "Built the core catering marketplace end to end — 5k+ active users and $100k+ in sales since launch.",
+      "Founding engineer owning the core catering marketplace and internal tooling end to end, wearing whatever hat was needed.",
     route: "/work/caterdash",
     comingSoon: {
       title: "caterdash — status",
@@ -65,7 +65,7 @@ export const jobs: Job[] = [
     period: "Aug 2025 – Apr 2026",
     periodLong: "Aug 2025 – Apr 2026",
     blurb:
-      "Ran weekly digital logic labs for 50 students and supported exams for 400+.",
+      "Supported students in discrete mathematics and computational problem-solving through office hours and labs.",
     summary: null,
     route: null,
     comingSoon: null,

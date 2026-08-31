@@ -38,6 +38,7 @@ export interface Education {
   degree: string;
   period: string;
   coursework: string;
+  awards: string | null;
 }
 
 export type LinkId = "email" | "linkedin" | "github";
@@ -56,7 +57,7 @@ export interface Profile {
   headline: string;
   resumePath: string;
   aboutHeading: string;
-  bio: string;
+  bio: string[];
   photo: string;
   location: string;
 }

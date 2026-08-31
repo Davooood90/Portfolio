@@ -6,27 +6,35 @@ export const profile: Profile = {
     "CS @ UBC | Full-stack developer, exploring AI, building memri & more.",
   resumePath: "/resume.pdf",
   aboutHeading: "About Me",
-  bio: `I'm a Computer Science student at UBC who likes building things that people actually use. Most of my work sits at the seam between a clean interface and the messy systems behind it — streaming audio pipelines, containerized compilers, marketplace backends. I care about shipping. My favourite projects are the ones that went from "wouldn't it be cool if" to something with real users in a matter of weeks, and I'd rather learn a tool in production than read about it for a month first.`,
-  photo: "https://www.devbydavidliu.com/person.png",
+  bio: [
+    `Hi! I’m David 👋 I’m a third-year Computer Science student at UBC. I really like figuring out how things work and turning an idea into something real. If something grabs my attention, I’ll happily go down a rabbit hole at 6am to understand it.`,
+    `Outside of code, I’m usually out hiking around Vancouver. Most of my other free time goes to TFT and hunting down good food. Thanks for stopping by :)`,
+  ],
+  photo: "/pfp.png",
   location: "Vancouver, BC",
 };
 
 export const education: Education[] = [
   {
     school: "University of British Columbia",
-    degree: "B.Sc. Computer Science, Co-op — Dean's Scholar, 4.33/4.33 GPA",
+    degree:
+      "B.Sc. Computer Science, Co-op, Specialization in Artificial Intelligence",
     period: "Expected May 2028",
     coursework:
-      "Coursework I've gotten the most out of: Algorithm Design & Analysis, Software Engineering, Relational Databases, Computer Systems, Computer Networking.",
+      "Algorithm Design and Analysis, Software Engineering, Relational Databases, Software Construction, Computer Systems, Computer Networking, Matrix Algebra, Statistics, Data Science",
+    awards: "Dean's Scholar (4.33/4.33 GPA), J Fred Muir Memorial Scholarship",
   },
 ];
 
 export const hobbies: string[] = [
-  "Badminton",
   "Piano",
-  "Cooking",
+  "Badminton",
   "Volleyball",
+  "Cooking",
+  "Baking",
   "Hiking",
+  "Running",
+  "Gaming",
 ];
 
 export const links: SocialLink[] = [
