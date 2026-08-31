@@ -1,31 +1,81 @@
-import Navbar from "../components/navbar";
-import "./index.css";
-import Footer from "../components/footer";
-import React, { Suspense } from "react";
-import { Analytics } from "@vercel/analytics/next";
+import type { Metadata, Viewport } from "next";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import { TerminalProvider } from "@/components/terminal/terminal-provider";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
-export const metadata = {
-  title: "David's Portfolio",
-  description: "Hi! My name is David and welcome to my corner of the internet!",
-  icons: {
-    icon: "/favicon.svg",
+import "./globals.css";
+
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+const siteUrl = "https://www.devbydavidliu.com";
+const title = "David Liu";
+const description = "CS @ UBC. Software Engineer. Previously at CaterDash";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    title,
+    description,
+    images: ["/og-image.png"],
   },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/og-image.png"],
+  },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "dark light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f8f9" },
+    { media: "(prefers-color-scheme: dark)", color: "#1c1c1e" },
+  ],
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" className="bg-darkblue">
-      <body className="font-jersey">
-        <Suspense fallback={<div>Loading...</div>}>
-          <Navbar />
-          {children}
-          <Analytics />
-          <Footer />
-        </Suspense>
+    <html
+      lang="en"
+      className="scroll-smooth scroll-pt-16 sm:scroll-pt-20"
+      suppressHydrationWarning
+    >
+      <body
+        className={`${plexSans.variable} ${plexMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TerminalProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </TerminalProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,166 +1,355 @@
 "use client";
 
-import type React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
+import { useTerminal } from "@/components/terminal/terminal-provider";
 
-export default function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const pageSections: Record<string, { id: string; label: string }[]> = {
+  "/": [
+    { id: "about", label: "about/" },
+    { id: "work", label: "work/" },
+    { id: "projects", label: "projects/" },
+    { id: "contact", label: "contact/" },
+  ],
+  "/about": [
+    { id: "overview", label: "me.md" },
+    { id: "education", label: "education.txt" },
+    { id: "hobbies", label: "hobbies/" },
+  ],
+  "/work": [],
+  "/projects": [],
+};
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+const THEME_BTN =
+  "flex shrink-0 items-center justify-center rounded border border-border-strong p-2.5 text-text-muted transition-colors hover:border-border hover:text-text-strong";
 
-  const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/#about" },
-    { name: "Experiences", href: "/experiences" },
-    { name: "Projects", href: "/projects" },
-  ];
+const TERMINAL_BTN =
+  "shrink-0 whitespace-nowrap rounded border border-accent px-4 py-2 text-[13px] text-accent transition-colors hover:bg-accent hover:text-background";
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+const NAV_LINK =
+  "shrink-0 text-[13px] text-text-muted transition-colors hover:text-text-strong sm:text-[13.5px]";
 
-  const scrollToElement = (id: string) => {
-    setTimeout(() => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 100);
-  };
+// Executables (theme.sh, terminal.exe) — green, the way `ls --color` flags them.
+const NAV_EXEC =
+  "shrink-0 text-[13px] text-accent transition-colors hover:brightness-110 sm:text-[13.5px]";
+
+// Fade whichever end of a horizontal scroll strip still has hidden content.
+// `active` gates the listeners (the mobile dropdown row only exists while open);
+// `resetKey` forces a re-measure when the link set changes without a resize.
+function useEdgeFade(active: boolean, resetKey: string) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ start: false, end: false });
 
   useEffect(() => {
-    if (window.location.hash) {
-      const id = window.location.hash.substring(1);
-      scrollToElement(id);
+    const el = ref.current;
+    if (!el || !active) {
+      setEdges((p) => (p.start || p.end ? { start: false, end: false } : p));
+      return;
     }
-  }, [pathname, searchParams]);
+    const update = () => {
+      const start = el.scrollLeft > 2;
+      const end =
+        Math.ceil(el.scrollLeft + el.clientWidth) < el.scrollWidth - 2;
+      setEdges((p) =>
+        p.start === start && p.end === end ? p : { start, end },
+      );
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      observer.disconnect();
+    };
+  }, [active, resetKey]);
 
-  const handleNavClick = async (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    const [path, hash] = href.split("#");
+  const mask =
+    edges.start || edges.end
+      ? `linear-gradient(to right, transparent, #000 ${
+          edges.start ? "1.75rem" : "0px"
+        }, #000 calc(100% - ${edges.end ? "1.75rem" : "0px"}), transparent)`
+      : undefined;
 
-    if (hash) {
-      e.preventDefault();
-
-      if (pathname !== path) {
-        await router.push(`${path}#${hash}`);
-        setTimeout(() => scrollToElement(hash), 100);
-      } else {
-        scrollToElement(hash);
-        window.history.pushState(null, "", `#${hash}`);
-      }
-    }
-
-    if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
-    }
+  return {
+    ref,
+    style: mask ? { maskImage: mask, WebkitMaskImage: mask } : undefined,
   };
+}
 
-  const navbarStyle = `block w-full max-w-screen px-4 py-3 mx-auto bg-opacity-0 top-3 z-[9999] ${
-    pathname === "/" ? "absolute" : "fixed"
-  }`;
+function NavLinks({
+  isHome,
+  upHref,
+  sections,
+  onNavigate,
+}: {
+  isHome: boolean;
+  upHref: string;
+  sections: { id: string; label: string }[];
+  onNavigate?: () => void;
+}) {
+  return (
+    <>
+      {!isHome && (
+        <Link href={upHref} onClick={onNavigate} className={NAV_LINK}>
+          ../
+        </Link>
+      )}
+      {sections.map(({ id, label }) => (
+        <a key={id} href={`#${id}`} onClick={onNavigate} className={NAV_LINK}>
+          {label}
+        </a>
+      ))}
+    </>
+  );
+}
 
-  const containerClass = `container flex flex-wrap items-center justify-between mx-auto text-slate-800 px-8 rounded-4xl transition duration-150 bg-darkblue/80 backdrop-blur-md backdrop-saturate-150`;
+function ThemeToggle({
+  isDark,
+  onToggle,
+  className,
+}: {
+  isDark: boolean;
+  onToggle: () => void;
+  className: string;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={isDark}
+      aria-label="Toggle dark mode"
+      onClick={onToggle}
+      className={className}
+    >
+      {isDark ? (
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-4 w-4"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+        </svg>
+      ) : (
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-4 w-4"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
+export default function Navbar() {
+  const { theme, setTheme } = useTheme();
+  const { isOpen: terminalOpen, toggle: toggleTerminal } = useTerminal();
+  const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showHint, setShowHint] = useState(false);
+  const enterRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
+
+  useEffect(() => setMounted(true), []);
+
+  const isHome = pathname === "/";
+  const isDark = mounted ? theme === "dark" : true;
+  const sections = pageSections[pathname] ?? [];
+  const segments = pathname.split("/").filter(Boolean);
+  const homeSectionIds = new Set(pageSections["/"].map((s) => s.id));
+  const upHref =
+    segments.length > 1 && homeSectionIds.has(segments[0])
+      ? `/#${segments[0]}`
+      : "/";
+
+  const toggleTheme = () => setTheme(isDark ? "light" : "dark");
+  const closeMenu = () => setMenuOpen(false);
+
+  const deskFade = useEdgeFade(true, pathname);
+  const menuFade = useEdgeFade(menuOpen, pathname);
+
+  useEffect(() => setMenuOpen(false), [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    const onScroll = () => setMenuOpen(false);
+    document.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [menuOpen]);
+
+  // On every mobile page load, briefly nudge the reader toward the menu button.
+  useEffect(() => {
+    if (!window.matchMedia("(max-width: 639px)").matches) return;
+    const t = setTimeout(() => setShowHint(true), 900);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Auto-dismiss the hint after a while.
+  useEffect(() => {
+    if (!showHint) return;
+    const t = setTimeout(() => setShowHint(false), 10000);
+    return () => clearTimeout(t);
+  }, [showHint]);
 
   return (
-    <div>
-      <nav className={navbarStyle}>
-        <div className={containerClass}>
-          <Link
-            href="/"
-            className="mr-4 block cursor-pointer py-1.5 text-lightblue font-bold text-2xl hover:text-hoverblue"
-          >
-            DAVID LIU
-          </Link>
+    <header className="sticky top-0 z-50 border-b border-border-strong bg-nav backdrop-blur">
+      <nav className="relative z-50 flex items-center gap-6 px-4 py-3 font-mono sm:px-8 sm:py-4">
+        {/* Prompt — always visible. Blinking cursor is mobile-only + closed-only. */}
+        <Link
+          href="/"
+          aria-label="Home"
+          className="shrink-0 text-[13px] sm:text-sm"
+        >
+          <span className="text-accent">david@portfolio</span>
+          <span className="text-text-dim">
+            :~{isHome ? "" : pathname}$
+          </span>{" "}
+          <span className="text-text">
+            ls
+            {!menuOpen && <span className="animate-blink sm:hidden">_</span>}
+          </span>
+        </Link>
 
-          <div className="lg:hidden">
+        {/* Desktop — links + controls in one horizontal scroll strip. */}
+        <div
+          ref={deskFade.ref}
+          style={deskFade.style}
+          className="no-scrollbar hidden min-w-0 flex-1 items-center gap-6 overflow-x-auto whitespace-nowrap sm:-mr-8 sm:flex sm:pr-8"
+        >
+          <NavLinks isHome={isHome} upHref={upHref} sections={sections} />
+
+          <div className="ml-auto flex shrink-0 items-center gap-3">
+            <ThemeToggle
+              isDark={isDark}
+              onToggle={toggleTheme}
+              className={THEME_BTN}
+            />
             <button
-              className="relative ml-auto h-6 max-h-[40px] w-6 max-w-[40px] select-none rounded-lg text-center align-middle text-xs font-medium uppercase text-lightblue transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              onClick={toggleMobileMenu}
               type="button"
+              onClick={toggleTerminal}
+              aria-haspopup="dialog"
+              aria-expanded={terminalOpen}
+              className={TERMINAL_BTN}
             >
-              {isMobileMenuOpen ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
-                </svg>
-              )}
+              terminal.exe
             </button>
           </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:block">
-            <ul className="flex flex-col gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-              {navItems.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl"
-                >
-                  <Link
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
-                    className="flex items-center"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
-        {/* Mobile Dropdown Menu */}
-        <div className="container mx-auto flex justify-end">
-          {isMobileMenuOpen && (
-            <div className="w-[180px] right-0 mt-2 bg-midblue/80 backdrop-blur-md backdrop-saturate-150 shadow-md rounded-3xl z-50 lg:hidden">
-              <ul className="flex flex-col p-6 gap-2">
-                {navItems.map((item, index) => (
-                  <li
-                    key={index}
-                    className="text-lightblue hover:text-hoverblue text-xl"
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={(e) => handleNavClick(e, item.href)}
-                      className="block"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+
+        {/* Mobile — press ↵ to "run ls". Kept mounted while open (invisible)
+            so the nav row height never changes. The first-load hint hangs
+            below the button (absolute) so it never shifts the row. */}
+        <div className="group relative -mr-2 ml-auto flex shrink-0 items-center sm:hidden">
+          <button
+            ref={enterRef}
+            type="button"
+            onClick={() => {
+              setMenuOpen((v) => !v);
+              setShowHint(false);
+            }}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav-menu"
+            className={`flex h-10 w-10 items-center justify-center text-lg leading-none text-text-muted transition-colors duration-300 group-hover:text-text-strong ${
+              menuOpen ? "invisible" : ""
+            }`}
+          >
+            ↵
+          </button>
+
+          <button
+            type="button"
+            tabIndex={showHint && !menuOpen ? 0 : -1}
+            aria-hidden={!(showHint && !menuOpen)}
+            onClick={() => {
+              setMenuOpen(true);
+              setShowHint(false);
+            }}
+            className={`absolute right-0 top-8 z-50 mt-2.5 flex items-center whitespace-nowrap rounded border border-border-strong bg-surface px-2 py-1 text-[11px] leading-none text-text-muted shadow-sm transition-all duration-300 group-hover:border-border group-hover:text-text-strong ${
+              showHint && !menuOpen
+                ? "translate-y-0 opacity-100"
+                : "pointer-events-none -translate-y-1 opacity-0"
+            }`}
+          >
+            <span
+              aria-hidden="true"
+              className="absolute -top-[5px] right-4 h-2 w-2 rotate-45 border-l border-t border-border-strong bg-surface transition-all duration-300 group-hover:border-border"
+            />
+            click me
+          </button>
         </div>
       </nav>
-    </div>
+
+      {/* Mobile dropdown — the "ls" output. */}
+      {menuOpen && (
+        <>
+          {/* Tap-catcher + scrim. Must be `absolute top-full h-dvh`, not
+              `fixed inset-0`: the header's backdrop-blur is a containing block
+              for fixed descendants and would trap it inside the header bar. */}
+          <div
+            className="absolute inset-x-0 top-full z-40 h-dvh bg-black/20 sm:hidden"
+            aria-hidden="true"
+            onClick={closeMenu}
+          />
+          <div
+            id="mobile-nav-menu"
+            className="absolute inset-x-0 top-full z-40 border-b border-border-strong bg-nav backdrop-blur sm:hidden"
+          >
+            <div
+              ref={menuFade.ref}
+              style={menuFade.style}
+              className="no-scrollbar flex items-center gap-6 overflow-x-auto whitespace-nowrap px-4 py-3 font-mono"
+            >
+              <NavLinks
+                isHome={isHome}
+                upHref={upHref}
+                sections={sections}
+                onNavigate={closeMenu}
+              />
+              {/* Theme + terminal as plain "executables" in the same ls row. */}
+              <button
+                type="button"
+                aria-pressed={isDark}
+                onClick={toggleTheme}
+                className={NAV_EXEC}
+              >
+                theme.sh
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  closeMenu();
+                  toggleTerminal();
+                }}
+                aria-haspopup="dialog"
+                aria-expanded={terminalOpen}
+                className={NAV_EXEC}
+              >
+                terminal.exe
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+    </header>
   );
 }

@@ -1,115 +1,102 @@
-"use client";
-import Link from "next/link";
+import type { ReactElement } from "react";
+import { links } from "@/content/profile";
+import type { LinkId } from "@/content/types";
+
+function GithubIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4"
+    >
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5a13.38 13.38 0 0 0-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5a4.8 4.8 0 0 0-1 3.5v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  );
+}
+
+function LinkedinIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4"
+    >
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function MailIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4"
+    >
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  );
+}
+
+const ICON: Record<LinkId, () => ReactElement> = {
+  github: GithubIcon,
+  linkedin: LinkedinIcon,
+  email: MailIcon,
+};
+
+// Footer display order (the contact section renders links in their source order).
+const FOOTER_ORDER: LinkId[] = ["github", "linkedin", "email"];
+
+const socials = FOOTER_ORDER.map((id) => {
+  const link = links.find((l) => l.id === id)!;
+  return {
+    label: link.label,
+    href: link.href,
+    external: link.external,
+    Icon: ICON[id],
+  };
+});
 
 export default function Footer() {
-  return (
-    <div>
-      <nav className="block w-full max-w-screen px-4 py-4 mx-auto bg-midblue top-3 z-[9999]">
-        <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
-          <p className="mr-4 block py-1.5 text-lightblue text-sm">
-            Copyright © David Liu 2025
-          </p>
+  const year = new Date().getFullYear();
 
-          <div className="block">
-            <ul className="flex gap-0 mt-2 mb-0 mt-0 flex-row items-center ">
-              <li className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl">
-                <Link
-                  href="https://www.linkedin.com/in/davidliu906/"
-                  className="flex items-center"
-                  target="_blank"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"
-                    />
-                  </svg>
-                </Link>
-              </li>
-              <li className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl">
-                <Link
-                  href="https://github.com/Davooood90"
-                  className="flex items-center"
-                  target="_blank"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"
-                    />
-                  </svg>
-                </Link>
-              </li>{" "}
-              <li className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl">
-                <Link
-                  href="mailto:david.liu906@gmail.com"
-                  className="flex items-center"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zM20 8l-7.475 4.675q-.125.075-.262.113t-.263.037t-.262-.037t-.263-.113L4 8v10h16zm-8 3l8-5H4zM4 8v.25v-1.475v.025V6v.8v-.012V8.25zv10z"
-                    />
-                  </svg>
-                </Link>
-              </li>
-              <li className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl">
-                <Link
-                  href="https://www.instagram.com/davoooodliu/"
-                  className="flex items-center"
-                  target="_blank"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"
-                    />
-                  </svg>
-                </Link>
-              </li>
-              <li className="flex items-center p-1 gap-x-2 text-lightblue hover:text-hoverblue text-xl">
-                <Link
-                  href="https://drive.google.com/file/d/1NU5psM7sR1VwcNEGCcB_RyZ5Dfnb7zd1/view?usp=sharing"
-                  target="_blank"
-                  className="flex items-center"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"
-                    />
-                  </svg>
-                </Link>
-              </li>
-            </ul>
-          </div>
+  return (
+    <footer className="border-t border-border px-5 py-6 font-mono sm:px-8">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 sm:flex-row sm:justify-between">
+        <p className="text-[12.5px] text-text-faint">
+          David Liu. Built with care, {year}.
+        </p>
+        <div className="flex items-center gap-1 sm:gap-2">
+          {socials.map(({ label, href, external, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              aria-label={label}
+              className="flex h-11 w-11 items-center justify-center text-text-faint transition-colors hover:text-accent"
+            >
+              <Icon />
+            </a>
+          ))}
         </div>
-      </nav>
-    </div>
+      </div>
+    </footer>
   );
 }

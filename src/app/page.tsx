@@ -1,59 +1,15 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import LandingPage from "../components/landing";
-import TitlePage from "../components/title";
-import AboutPage from "../components/about";
-// import ContactPage from "../components/contact";
-import { usePathname } from "next/navigation";
+import AboutSection from "@/components/mainSections/about";
+import WorkSection from "@/components/mainSections/work";
+import ProjectsSection from "@/components/mainSections/projects";
+import ContactSection from "@/components/mainSections/contact";
 
 export default function Home() {
-  const pathname = usePathname();
-
-  const titlePageRef = useRef<HTMLDivElement>(null);
-  const welcomeRef = useRef<HTMLHeadingElement>(null);
-  // const contactRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    if (pathname !== "/" || window.location.hash) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            welcomeRef.current?.scrollIntoView({ behavior: "smooth" });
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (titlePageRef.current) {
-      observer.observe(titlePageRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [pathname]);
-
   return (
-    <>
-      <div className="custom-gradient">
-        <LandingPage />
-        <div ref={titlePageRef}>
-          <TitlePage />
-        </div>
-      </div>
-      <div className="my-8 lg:my-16">
-        <div ref={welcomeRef} id="about">
-          <AboutPage />
-        </div>
-        {/* <div ref={contactRef} id="contact">
-          <ContactPage />
-        </div> */}
-      </div>
-    </>
+    <main className="mx-auto max-w-5xl px-5 sm:px-8">
+      <AboutSection />
+      <WorkSection />
+      <ProjectsSection />
+      <ContactSection />
+    </main>
   );
 }
